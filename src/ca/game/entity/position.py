@@ -1,4 +1,5 @@
-import enum
+from enum import enum
+
 
 class DistanceMetric(enum):
     MANHATTAN=0
