@@ -1,5 +1,5 @@
 from .individual import Individual
-from .position import DistanceMetric
+from .position import DistanceMetric, Position
 
 class Conway(Individual):
     def __init__(self, position:"Position", living:bool):
@@ -29,52 +29,163 @@ class Conway(Individual):
 ####### Initial Formations #######
 
 def glider() -> dict:
-    ...
+    """ 3x3 Basic glider"""
+    temp = {
+        0  : {
+                0 : Conway(Position(0,0),True), 
+                1 : Conway(Position(0,1),True), 
+                2 : Conway(Position(0,2),True)
+              },
+        1  : {
+                0 : Conway(Position(1,0),False), 
+                1 : Conway(Position(1,1),False), 
+                2 : Conway(Position(1,2),True)
+              },
+        2  : {
+                0 : Conway(Position(2,0),False), 
+                1 : Conway(Position(2,1),True), 
+                2 : Conway(Position(2,2),False)
+              }
+    }
+    return temp
 
 
-def block() -> dict:
-    ...
-
-
-def light_weight_ship() -> dict:
-    ...
-
-
-def middle_weight_ship() -> dict:
-    ...
-
-
-def heavy_weight_ship() -> dict:
-    ...
-
-
-def bee_hive() -> dict:
-    ...
-
-
-def boat() -> dict:
-    ...
+def block(x,y) -> dict:
+    """ 4x4 block """
+    temp = {
+        0  : {
+                0 : Conway(Position(0,0),False), 
+                1 : Conway(Position(0,1),False), 
+                2 : Conway(Position(0,2),False),
+                3 : Conway(Position(0,3),False)
+              },
+        1  : {
+                0 : Conway(Position(1,0),False), 
+                1 : Conway(Position(1,1),True), 
+                2 : Conway(Position(1,2),True),
+                3 : Conway(Position(1,3),False)
+              },
+        2  : {
+                0 : Conway(Position(2,0),False), 
+                1 : Conway(Position(2,1),True), 
+                2 : Conway(Position(2,2),True),
+                3 : Conway(Position(2,3),False)
+              },
+        3  : {
+                0 : Conway(Position(3,0),False), 
+                1 : Conway(Position(3,1),False), 
+                2 : Conway(Position(3,2),False),
+                3 : Conway(Position(3,3),False)
+              }
+    }
+    return temp
 
 
 def tub() -> dict:
-    ...
+    """ 3x3 Tub """
+    temp = {
+        0  : {
+                0 : Conway(Position(0,0),False), 
+                1 : Conway(Position(0,1),True), 
+                2 : Conway(Position(0,2),False)
+              },
+        1  : {
+                0 : Conway(Position(1,0),True), 
+                1 : Conway(Position(1,1),False), 
+                2 : Conway(Position(1,2),True)
+              },
+        2  : {
+                0 : Conway(Position(2,0),False), 
+                1 : Conway(Position(2,1),True), 
+                2 : Conway(Position(2,2),False)
+              }
+    }
+    return temp
 
 
-def blinker() -> dict:
-    ...
+def boat() -> dict:
+    """ 3x3 Boat """
+    temp = {
+        0  : {
+                0 : Conway(Position(0,0),False), 
+                1 : Conway(Position(0,1),True), 
+                2 : Conway(Position(0,2),True)
+              },
+        1  : {
+                0 : Conway(Position(1,0),True), 
+                1 : Conway(Position(1,1),False), 
+                2 : Conway(Position(1,2),True)
+              },
+        2  : {
+                0 : Conway(Position(2,0),False), 
+                1 : Conway(Position(2,1),True), 
+                2 : Conway(Position(2,2),False)
+              }
+    }
+    return temp
 
 
-def toad() -> dict:
-    ...
+def snake() -> dict:
+    """ 4x2 Sanake """
+    temp = {
+        0  : {
+                0 : Conway(Position(0,0),True), 
+                1 : Conway(Position(0,1),True),
+                2 : Conway(Position(0,1),False),
+                3 : Conway(Position(0,1),True)
+              },
+        1  : {
+                0 : Conway(Position(1,0),True), 
+                1 : Conway(Position(1,1),False),
+                2 : Conway(Position(1,1),True),
+                3 : Conway(Position(1,1),True)
+              }
+    }
+    return temp
 
 
-def beacon() -> dict:
-    ...
+def ship() -> dict:
+    """ 3x3 Ship """
+    temp = {
+        0  : {
+                0 : Conway(Position(0,0),False), 
+                1 : Conway(Position(0,1),True), 
+                2 : Conway(Position(0,2),True)
+              },
+        1  : {
+                0 : Conway(Position(1,0),True), 
+                1 : Conway(Position(1,1),False), 
+                2 : Conway(Position(1,2),True)
+              },
+        2  : {
+                0 : Conway(Position(2,0),True), 
+                1 : Conway(Position(2,1),True), 
+                2 : Conway(Position(2,2),False)
+              }
+    }
+    return temp
 
 
-def pulsar() -> dict:
-    ...
-
-
-def penta_decathlon() -> dict:
-    ...
+def aircraft_carrier() -> dict:
+    """ 4x3 Ship """
+    temp = {
+        0  : {
+                0 : Conway(Position(0,0),False), 
+                1 : Conway(Position(0,1),True), 
+                2 : Conway(Position(0,2),True),
+                3 : Conway(Position(0,3),True)
+              },
+        1  : {
+                0 : Conway(Position(1,0),True), 
+                1 : Conway(Position(1,1),False), 
+                2 : Conway(Position(1,2),True),
+                3 : Conway(Position(1,3),True)
+              },
+        2  : {
+                0 : Conway(Position(2,0),True), 
+                1 : Conway(Position(2,1),True), 
+                2 : Conway(Position(2,2),False),
+                3 : Conway(Position(2,3),True)
+              }
+    }
+    return temp
