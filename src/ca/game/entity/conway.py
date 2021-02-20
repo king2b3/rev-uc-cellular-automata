@@ -16,3 +16,56 @@ class Conway(Individual):
 
     def draw(self, surface:"pygame.Surface") -> None:
         raise NotImplementedError
+
+####### Initial Formations #######
+
+def glider() -> dict:
+    ...
+
+
+def block() -> dict:
+    ...
+
+
+def light_weight_ship() -> dict:
+    ...
+
+
+def middle_weight_ship() -> dict:
+    ...
+
+
+def heavy_weight_ship() -> dict:
+    ...
+
+
+def bee_hive() -> dict:
+    ...
+
+
+def boat() -> dict:
+    ...
+
+
+def tub() -> dict:
+    ...
+
+
+def blinker() -> dict:
+    ...
+
+
+def toad() -> dict:
+    ...
+
+
+def beacon() -> dict:
+    ...
+
+
+def pulsar() -> dict:
+    ...
+
+
+def penta_decathlon() -> dict:
+    ...
