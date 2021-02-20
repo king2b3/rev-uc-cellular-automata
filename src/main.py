@@ -2,7 +2,11 @@
 """The main file for our Cellar Automata project"""
 
 import argparse
+import pygame
 import os
+
+from ca.game import Game, UpdateMode, BoundaryType
+from ca.window import Window
 
 
 def parse_arguments(args=None) -> None:
@@ -17,18 +21,16 @@ def parse_arguments(args=None) -> None:
     parser = argparse.ArgumentParser(
             description="Not much here yet, just wait a day.",
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument("input_file", help="Path to the input file.")
     args = parser.parse_args(args=args)
     return args
 
 
-def main(input_file) -> int:
+def main() -> int:
     """Main function.
 
     Parameters
     ----------
-    input_file: str:
-        Path the input file.
+
     Returns
     -------
     int
@@ -38,9 +40,18 @@ def main(input_file) -> int:
     FileNotFoundError
         Means that the input file was not found.
     """
-    # Error check if the file even exists
-    if not os.path.isfile(input_file):
-        raise FileNotFoundError("File not found: {}".format(input_file))
+    game = Game(UpdateMode.SYNCHRONOUS, {}, BoundaryType.PERIODIC)
+    window = Window(game, [], "", 600, 1200)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return 0
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    return 0
+            window.draw()
+
 
     # Return success code
     return 0

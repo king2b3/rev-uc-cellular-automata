@@ -1,6 +1,7 @@
 
 from .plot import Plot
-from matplotlib import pyplot
+import matplotlib.pyplot as plt
+import numpy as np
 
 class PlotAlive(Plot):
     def draw(self, surface:"pygame.Surface") -> None:
@@ -13,7 +14,7 @@ class PlotAlive(Plot):
         alive = [0,0,0]
         for x in range(len(game.grid)):
             for y in range(len(game.grid[x])):
-                if game.grid[x][y] is not None:
+                if isinstance(game.grid[x][y], Individual):
                     # Check if dead or alive
                     if game.grid[x][y].is_dead():
                         alive[1] += 1
@@ -37,5 +38,17 @@ class PlotAlive(Plot):
         """
 
         living = self.count_alive(game)
+
+        labels = ['Alive', 'Dead', 'None']
+        fig, ax = plt.figure()
+        rects = ax.bar(np.arange(len(living)),living,0.35)
+        # Add some text for labels, title and custom x-axis tick labels, etc.
+        ax.set_xlabel('X Label')
+        ax.set_ylabel('Y Label')
+        ax.set_title('Title')
+        ax.set_xticks(np.arange(len(living)))
+        ax.set_xticklabels(labels)
+        ax.legend()
+
         ...
 

@@ -1,6 +1,6 @@
 
 from .plot import Plot
-from matplotlib import pyplot
+import matplotlib.pyplot as plt
 
 class PlotAverage(Plot):
     def draw(self, surface:"pygame.Surface") -> None:
@@ -8,17 +8,18 @@ class PlotAverage(Plot):
     
     def average_traits(self, game:"Game"):
         # Search grid 
-        traits = [0,0,0]
+        # [energy, speed, sense]
+        totals = [0,0,0]
+        num_individuals = 0
         for x in range(len(game.grid)):
             for y in range(len(game.grid[x])):
-                if game.grid[x][y] is not None:
-                    # Check if dead or alive
-                    if game.grid[x][y].is_dead():
-                        traits[1] += 1
-                    else:
-                        traits[0] += 1
-                else:
-                    traits[2] += 1
+                if isinstance(game.grid[x][y], Individual):
+                    num_individuals += 1
+                    totals[0] += game.grid[x][y].energy
+                    totals[1] += game.grid[x][y].speed
+                    totals[2] += game.grid[x][y].sense
+        
+        traits = totals / num_individuals            
                 
         return traits   
 
@@ -42,9 +43,3 @@ class PlotAverage(Plot):
 
 
         ...
-
-         
-
-
-
-     
