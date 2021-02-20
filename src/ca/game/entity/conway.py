@@ -7,12 +7,12 @@ class Conway(Individual):
 
 
     def make_move(self, game:"Game") -> None:
-        raise NotImplemented
+        raise NotImplementedError
 
 
     def is_dead(self, game:"Game") -> None:
-        raise NotImplemented
+        raise NotImplementedError
 
 
     def draw(self, surface:"pygame.Surface") -> None:
-        raise NotImplemented
+        raise NotImplementedError

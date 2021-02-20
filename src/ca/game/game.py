@@ -35,7 +35,7 @@ class Game():
 
 
     def draw(self, surface:"pygame.Surface") -> None:
-        raise NotImplemented
+        raise NotImplementedError
 
 
     def neighbors(self, position:"Position", metric:"DistanceMetric",\
@@ -58,7 +58,7 @@ class Game():
         -------
             iter<Tuple<Position, Entity>>
         """
-        raise NotImplemented
+        raise NotImplementedError
 
 
     def asynchronous_update(self) -> None:
@@ -66,12 +66,38 @@ class Game():
         a copy of the grid of entities and perform updates with that
         information.
         """
-        raise NotImplemented
+        raise NotImplementedError
 
 
     def synchronus_update(self) -> None:
         """Perform an update with synchronusly, as in we update the
         grid as we go through it
         """
-        raise NotImplemented
+        raise NotImplementedError
 
+    
+    def insert_entities(grid:dict, insert_point:Position, 
+            check_collision:bool=True) -> None:
+        """Insert a mini grid of entities described with relative
+        positions to the grid at the specified insert point.
+
+        Parameters
+        ----------
+        grid: dict<dict<Tuple<Position, Entity>>
+            The grid of entities described in a relative position
+            to be added to the big grid.
+        insert_point: Position
+            The insert point to add to the grid.
+            Note that it assumes this is the bottom left, as the
+            bottom left is origin for all grids.
+        check_collision: bool = True
+            Rather we are concerned about collisions when inserting.
+            Default is to only allow inserting the new entities if that
+            grid space is completely devoid.
+        """
+        raise NotImplementedError
+
+
+    def delete_entity(position: "Position") -> None:
+        """Delete the entity that exists within that position"""
+        raise NotImplementedError

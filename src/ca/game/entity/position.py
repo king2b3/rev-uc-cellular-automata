@@ -19,10 +19,10 @@ class Position():
 
     def euclidian_distance(self, other:"Position", 
             boundary_type:BoundaryType) -> float:
-        raise NotImplemented
+        raise NotImplementedError
 
 
     def manhattan_distance(self, other:"Position", 
             boundary_type:BoundaryType) -> float:
-        raise NotImplemented
+        raise NotImplementedError
 
