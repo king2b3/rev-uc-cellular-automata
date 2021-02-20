@@ -53,7 +53,7 @@ class Game():
                         pygame.Rect(
                             (x*cell_width, y*cell_height),
                             (cell_width, cell_height)))
-                cell_surface.fill((x*15,y*5,x*y))
+                self._drawing_grid[x][y].draw(cell_surface)
 
 
     def neighbors(self, position:"Position", metric:"DistanceMetric",\

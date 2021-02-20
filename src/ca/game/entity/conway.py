@@ -24,7 +24,15 @@ class Conway(Individual):
 
 
     def draw(self, surface:"pygame.Surface") -> None:
-        raise NotImplementedError
+        # Select the color based on living status
+        if self.living:
+            color = (255, 255, 255)
+        else:
+            color = (0, 0, 0)
+            
+        # Fill the surface with the color!
+        surface.fill(color)
+
 
 ####### Initial Formations #######
 
