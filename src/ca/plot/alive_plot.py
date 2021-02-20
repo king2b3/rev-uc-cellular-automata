@@ -1,7 +1,7 @@
 
 from .plot import Plot
 
-class PlotAverage(Plot):
+class PlotAlive(Plot):
     def draw(self, surface:"pygame.Surface") -> None:
         raise NotImplementedError
 
@@ -21,5 +21,6 @@ class PlotAverage(Plot):
         # Get the information from the game object
 
 
-    def average_traits(self, game:"Game"):
+    def count_alive(self, game:"Game"):
         raise NotImplementedError   
+
