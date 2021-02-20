@@ -56,7 +56,7 @@ class Game():
         raise NotImplemented
 
 
-    def asynchronus_update(self) -> None:
+    def asynchronous_update(self) -> None:
         """Perform an update with asynchronusly, as in we first make
         a copy of the grid of entities and perform updates with that
         information.
