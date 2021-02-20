@@ -30,6 +30,12 @@ class Game():
         self._working_grid = copy.deepcopy(grid)
 
 
+    @property
+    def grid(self):
+        """The exposed grid for use in drawing and such"""
+        return self._drawing_grid
+
+
     def update_grid(self) -> None:
         self._drawing_grid = copy.deepcopy(self._working_grid)
 
