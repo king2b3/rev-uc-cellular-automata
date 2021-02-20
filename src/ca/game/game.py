@@ -1,8 +1,8 @@
 import copy
-import enum
+from enum import Enum
 
 
-class UpdateMode(enum):
+class UpdateMode(Enum):
     SYNCHRONOUS=0
     ASYNCHRONOUS=1
 
