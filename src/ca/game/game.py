@@ -1,5 +1,6 @@
 import copy
 from enum import Enum
+import pygame
 
 
 class UpdateMode(Enum):
@@ -41,7 +42,18 @@ class Game():
 
 
     def draw(self, surface:"pygame.Surface") -> None:
-        surface.fill((255,255,255))
+        # Determine the cell sizes
+        cell_width = surface.get_width() / len(self._drawing_grid)
+        cell_height = surface.get_height() / len(self._drawing_grid)
+
+        # Draw the cells
+        for x in self._drawing_grid:
+            for y in self._drawing_grid[x]:
+                cell_surface = surface.subsurface(
+                        pygame.Rect(
+                            (x*cell_width, y*cell_height),
+                            (cell_width, cell_height)))
+                cell_surface.fill((x*15,y*5,x*y))
 
 
     def neighbors(self, position:"Position", metric:"DistanceMetric",\
