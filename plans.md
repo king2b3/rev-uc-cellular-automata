@@ -29,3 +29,14 @@ I think we should have a plotting API that we can call to display various plots.
 2. The end goal is to let the GUI call this API, but we could also just run a script to generate a bunch of plots and let the user view them either in the GUI or by opening them directly. 
 3. Multiple plots can be subplotted for the output. IE the user can call for NxN plots on a single output. 
 4. Generate a results pdf that shows the input and outputs of the test all in a report. This is just a desire, and will be more figuring out what is the best way to go this. I have done this with Pandas data-frame -> PDF before. 
+
+## First tasks
+Implement Conway's Game of Life in the system
+1. Build ABC for grid
+   1. Implement basic rules
+2. Interface with pygame
+   1. Generate movies
+3. Set output format to json
+   1. DUMP from class variables? 
+   2. Output class? 
+  
