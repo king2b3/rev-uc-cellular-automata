@@ -1,8 +1,8 @@
 import copy
-import enum
+from enum import Enum
 
 
-class UpdateMode(enum):
+class UpdateMode(Enum):
     SYNCHRONOUS=0
     ASYNCHRONOUS=1
 
@@ -28,6 +28,12 @@ class Game():
         self.boundary_type = boundary_type
         self._drawing_grid = grid
         self._working_grid = copy.deepcopy(grid)
+
+
+    @property
+    def grid(self):
+        """The exposed grid for use in drawing and such"""
+        return self._drawing_grid
 
 
     def update_grid(self) -> None:

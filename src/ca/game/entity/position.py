@@ -1,12 +1,12 @@
-from enum import enum
+from enum import Enum
 
 
-class DistanceMetric(enum):
+class DistanceMetric(Enum):
     MANHATTAN=0
     EUCLIDIAN=1
 
 
-class BoundaryType(enum):
+class BoundaryType(Enum):
     HARD=0
     PERIODIC=1
 

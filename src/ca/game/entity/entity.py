@@ -12,7 +12,7 @@ class Entity(abc.ABC):
 
 
     def size(self) -> int:
-        return len(positions)
+        return len(self.positions)
 
 
     @abc.abstractmethod
