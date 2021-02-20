@@ -1,5 +1,5 @@
 from .individual import Individual
-
+from .position import DistanceMetric
 
 class Conway(Individual):
     def __init__(self, position:"Position", living:bool):
@@ -8,11 +8,19 @@ class Conway(Individual):
 
 
     def make_move(self, game:"Game") -> None:
-        raise NotImplementedError
+        living_neighbors = sum(sum(x.state for x in n.values()) for n in game.neighbors(self.position, 1, DistanceMetric.MANHATTAN).values())    
+        if self.living:
+            if living_neighbors == 2 or living_neighbors == 3:
+                self.living = True
+            else:
+                self.living = False
+        else:
+            if living_neighbors == 3:
+                self.living = True
 
 
     def is_dead(self, game:"Game") -> None:
-        return self.living
+        return not self.living
 
 
     def draw(self, surface:"pygame.Surface") -> None:
