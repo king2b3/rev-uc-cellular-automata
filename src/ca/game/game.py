@@ -41,7 +41,7 @@ class Game():
 
 
     def draw(self, surface:"pygame.Surface") -> None:
-        raise NotImplementedError
+        surface.fill((255,255,255))
 
 
     def neighbors(self, position:"Position", metric:"DistanceMetric",\
@@ -82,7 +82,7 @@ class Game():
         raise NotImplementedError
 
     
-    def insert_entities(grid:dict, insert_point:Position, 
+    def insert_entities(grid:dict, insert_point:"Position", 
             check_collision:bool=True) -> None:
         """Insert a mini grid of entities described with relative
         positions to the grid at the specified insert point.
@@ -107,3 +107,4 @@ class Game():
     def delete_entity(position: "Position") -> None:
         """Delete the entity that exists within that position"""
         raise NotImplementedError
+
