@@ -1,12 +1,10 @@
-import abc
 
+from .plot import Plot
 
-class Plot(abc.ABC):
+class AverageTraits(Plot):
     def draw(self, surface:"pygame.Surface") -> None:
         raise NotImplementedError
 
-
-    @abc.abstractmethod
     def plot(self, game:"Game", file_path:str) -> None:
         """Plot the game information saving the plot to the given
         file path
