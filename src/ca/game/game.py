@@ -35,7 +35,7 @@ class Game():
 
 
     def draw(self, surface:"pygame.Surface") -> None:
-        raise NotImplemented
+        raise NotImplementedError
 
 
     def neighbors(self, position:"Position", metric:"DistanceMetric",\
@@ -58,7 +58,7 @@ class Game():
         -------
             iter<Tuple<Position, Entity>>
         """
-        raise NotImplemented
+        raise NotImplementedError
 
 
     def asynchronous_update(self) -> None:
@@ -66,14 +66,14 @@ class Game():
         a copy of the grid of entities and perform updates with that
         information.
         """
-        raise NotImplemented
+        raise NotImplementedError
 
 
     def synchronus_update(self) -> None:
         """Perform an update with synchronusly, as in we update the
         grid as we go through it
         """
-        raise NotImplemented
+        raise NotImplementedError
 
     
     def insert_entities(grid:dict, insert_point:Position, 
@@ -95,7 +95,7 @@ class Game():
             Default is to only allow inserting the new entities if that
             grid space is completely devoid.
         """
-        raise NotImplemented
+        raise NotImplementedError
 
 
     def delete_entity(position: "Position") -> None:

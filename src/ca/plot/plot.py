@@ -3,7 +3,7 @@ import abc
 
 class Plot(abc.ABC):
     def draw(self, surface:"pygame.Surface") -> None:
-        raise NotImplemented
+        raise NotImplementedError
 
 
     @abc.abstractmethod

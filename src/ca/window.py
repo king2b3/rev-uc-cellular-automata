@@ -12,9 +12,9 @@ class Window():
 
 
     def draw(self):
-        raise NotImplemented
+        raise NotImplementedError
 
 
     def update(self):
-        raise NotImplemented
+        raise NotImplementedError
 
