@@ -1,6 +1,6 @@
 
 from .plot import Plot
-from matplotlib import pyplot
+import matplotlib.pyplot as plt
 
 class PlotAverage(Plot):
     def draw(self, surface:"pygame.Surface") -> None:

@@ -1,6 +1,7 @@
 
 from .plot import Plot
-from matplotlib import pyplot
+import matplotlib.pyplot as plt
+import numpy as np
 
 class PlotAlive(Plot):
     def draw(self, surface:"pygame.Surface") -> None:
@@ -37,5 +38,8 @@ class PlotAlive(Plot):
         """
 
         living = self.count_alive(game)
+
+        fig, ax = plt.figure()
+        rects = ax.bar(np.arange(len(living)),living,0.35)
         ...
 
