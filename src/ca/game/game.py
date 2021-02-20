@@ -8,7 +8,8 @@ class UpdateMode(enum):
 
 
 class Game():
-    def __init__(self, update_mode:UpdateMode, grid:dict):
+    def __init__(self, update_mode:UpdateMode, grid:dict, 
+            boundary_type:"BoundaryType"):
         """
         Parameters
         ----------
@@ -19,8 +20,12 @@ class Game():
             The x,y plane of entities.
             The top layer of dicts is the x plane, the inner dicts
             are the y plane.
+
+        boundary_type: BoundaryType
+            Rather the boundary is periodic or hard af.
         """
         self.update_mode = update_mode
+        self.boundary_type = boundary_type
         self._drawing_grid = grid
         self._working_grid = copy.deepcopy(grid)
 
