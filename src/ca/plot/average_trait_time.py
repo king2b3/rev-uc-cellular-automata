@@ -6,7 +6,8 @@ import numpy as np
 
 class AverageTraitTime(Plot):
     def __init__(self):
-        self.avgtraits = [[],[],[]]
+        self.avgtraits = {}
+        # [[],[],[]]
 
 
     def plot(self, game:"Game", file_path:str, height:int, width:int) -> None:
@@ -21,9 +22,15 @@ class AverageTraitTime(Plot):
             The file path to save the plot to.
         """
         traits = average_traits(game)
-        self.avgtraits[0].append(traits[0][0])
-        self.avgtraits[1].append(traits[1][0])
-        self.avgtraits[2].append(traits[2][0])
+        """occupant_name = game.grid[x][y].__class__.__name__
+
+        if occupant_name in self.avgtraits:
+            self.avgtraits[occupant_name][0].append(traits[0][0])
+            self.avgtraits[occupant_name][1].append(traits[1][0])
+            self.avgtraits[occupant_name][2].append(traits[2][0])
+        else:
+            self.avgtraits[occupant_name] = traits
+        """
 
         x_vals = np.arange(len(self.avgtraits[0]))
 
