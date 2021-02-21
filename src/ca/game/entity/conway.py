@@ -386,11 +386,11 @@ def human() -> dict:
         2  : {
                 0 : Conway(Position(2,0),False), 
                 1 : Conway(Position(2,1),False), 
-                2 : Conway(Position(2,2),True),
-                3 : Conway(Position(2,3),False),
+                2 : Conway(Position(2,2),False),
+                3 : Conway(Position(2,3),True),
                 4 : Conway(Position(2,4),False),
                 5 : Conway(Position(2,5),False),
-                6 : Conway(Position(2,6),False)
+                6 : Conway(Position(2,6),True)
               },
         3  : {
                 0 : Conway(Position(3,0),False), 
@@ -480,12 +480,22 @@ def glider() -> dict:
     return temp
 
 def blinker_horizontal() -> dict:
-    """ 1x3 Blinker Horizontal """
+    """ 3x3 Blinker Horizontal """
     temp = {
         0  : {
-                0 : Conway(Position(0,0),True), 
+                0 : Conway(Position(0,0),False), 
                 1 : Conway(Position(0,1),True), 
-                2 : Conway(Position(0,2),True)
+                2 : Conway(Position(0,2),False)
+              },
+        1  : {
+                0 : Conway(Position(1,0),False), 
+                1 : Conway(Position(1,1),True), 
+                2 : Conway(Position(1,2),False)
+              },
+        2  : {
+                0 : Conway(Position(2,0),False), 
+                1 : Conway(Position(2,1),True), 
+                2 : Conway(Position(2,2),False)
               }
     }
     return temp
@@ -494,13 +504,19 @@ def blinker_vertical() -> dict:
     """ 3x1 Blinker Vertical """
     temp = {
         0  : {
-                0 : Conway(Position(0,0),True)
+                0 : Conway(Position(0,0),False),
+                0 : Conway(Position(0,1),False),
+                0 : Conway(Position(0,2),False)
               },
         1  : {
-                0 : Conway(Position(1,0),True)
+                0 : Conway(Position(1,0),True),
+                1 : Conway(Position(1,1),True),
+                2 : Conway(Position(1,3),True)
               },
         2  : {
-                0 : Conway(Position(2,0),True)
+                0 : Conway(Position(2,0),False),
+                0 : Conway(Position(2,0),False),
+                0 : Conway(Position(2,0),False)
               }
     }
     return temp
