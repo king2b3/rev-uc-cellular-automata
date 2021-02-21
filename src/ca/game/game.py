@@ -13,6 +13,10 @@ class UpdateMode(Enum):
     ASYNCHRONOUS=1
 
 
+class GameMode(Enum):
+    CONWAY=0
+
+
 class Game():
     def __init__(self, update_mode:UpdateMode, grid:dict, 
             boundary_type:"BoundaryType"):
@@ -179,5 +183,7 @@ class Game():
 
     def delete_entity(self, position: "Position") -> None:
         """Delete the entity that exists within that position"""
-        raise NotImplementedError
+        entity = self.grid[position.x][position.y]
+        for pos in entity.positions:
+            self.grid[pos.x][pos.y] = None
 
