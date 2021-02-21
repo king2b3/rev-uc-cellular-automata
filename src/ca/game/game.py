@@ -1,6 +1,10 @@
+from collections import defaultdict
 import copy
 from enum import Enum
 import pygame
+
+from .entity.individual import Individual
+from .entity.position import Position
 
 
 class UpdateMode(Enum):
@@ -37,10 +41,6 @@ class Game():
         return self._drawing_grid
 
 
-    def update_grid(self) -> None:
-        self._drawing_grid = copy.deepcopy(self._working_grid)
-
-
     def draw(self, surface:"pygame.Surface") -> None:
         # Determine the cell sizes
         cell_width = surface.get_width() / len(self._drawing_grid)
@@ -74,9 +74,26 @@ class Game():
 
         Returns
         -------
-            iter<Tuple<Position, Entity>>
+            iter<Entity>
         """
-        raise NotImplementedError
+        recorded_positions = []
+        max_position = Position(len(self.grid), len(self.grid))
+        for x in self._working_grid:
+            for y in self._working_grid[x]:
+                if Position(x,y) not in recorded_positions:
+                    entity = self._working_grid[x][y]
+                    for pos in entity.positions:
+                        if position.distance(pos, metric, 
+                                self.boundary_type, max_position) <= radius:
+                            yield entity
+                    recorded_positions.extend(entity.positions)
+
+
+    def update(self) -> None:
+        if self.update_mode == UpdateMode.ASYNCHRONOUS:
+            self.asynchronous_update()
+        else:
+            self.synchronus_update()
 
 
     def asynchronous_update(self) -> None:
@@ -84,7 +101,25 @@ class Game():
         a copy of the grid of entities and perform updates with that
         information.
         """
-        raise NotImplementedError
+        # Make a copy of the drawing grid to the working grid
+        self._working_grid = copy.deepcopy(self._drawing_grid)
+        updated = defaultdict(lambda: defaultdict(lambda: False))
+
+        # Go through each entity, asking it to make a move.
+        for x in self._working_grid:
+            for y in self._working_grid[x]:
+                # Has it already been updated?
+                if not updated[x][y]:
+                    # Is an individual?
+                    if isinstance(self._working_grid[x][y], Individual):
+                        self._working_grid[x][y].make_move(self)
+                        # Mark every position of this individual
+                        # as updated
+                        for pos in self._working_grid[x][y].positions:
+                            updated[pos.x][pos.y] = True
+
+        # Copy the working grid to drawing grid.
+        self._drawing_grid = copy.deepcopy(self._working_grid)
 
 
     def synchronus_update(self) -> None:
