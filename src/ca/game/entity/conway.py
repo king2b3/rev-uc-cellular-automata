@@ -9,11 +9,17 @@ class Conway(Individual):
 
 
     def make_move(self, game:"Game") -> None:
+        print("#######################################")
+        print(f"State:{self.living}")
         living_neighbors = 0
         for neigh in game.neighbors(self.positions[0], 
                 DistanceMetric.EUCLIDIAN, 1.5):
             if not neigh.is_dead(game):
+                print(f"x:{neigh.positions[0].x} y:{neigh.positions[0].y}")
+                #print(neigh.living)
                 living_neighbors += 1
+        print(f"living neighbors {living_neighbors}")
+        
 
         if self.living:
             if living_neighbors == 2 or living_neighbors == 3:
@@ -517,10 +523,10 @@ def blinker_horizontal() -> dict:
         
         1  : {
                 0 : Conway(Position(1,0),False),
-                1 : Conway(Position(1,0),False), 
-                2 : Conway(Position(1,1),True), 
-                3 : Conway(Position(1,2),False),
-                4 : Conway(Position(1,0),False),
+                1 : Conway(Position(1,1),False), 
+                2 : Conway(Position(1,2),True), 
+                3 : Conway(Position(1,3),False),
+                4 : Conway(Position(1,4),False),
               },
         2  : {
                 0 : Conway(Position(2,0),False),
@@ -547,23 +553,44 @@ def blinker_horizontal() -> dict:
     return temp
 
 def blinker_vertical() -> dict:
-    """ 3x1 Blinker Vertical """
+    """ 5x5 Blinker Vertical """
     temp = {
         0  : {
                 0 : Conway(Position(0,0),False),
-                0 : Conway(Position(0,1),False),
-                0 : Conway(Position(0,2),False)
+                1 : Conway(Position(0,1),False), 
+                2 : Conway(Position(0,2),False), 
+                3 : Conway(Position(0,3),False),
+                4 : Conway(Position(0,4),False),
               },
+        
         1  : {
-                0 : Conway(Position(1,0),True),
-                1 : Conway(Position(1,1),True),
-                2 : Conway(Position(1,3),True)
+                0 : Conway(Position(1,0),False),
+                1 : Conway(Position(1,0),False), 
+                2 : Conway(Position(1,1),False), 
+                3 : Conway(Position(1,2),False),
+                4 : Conway(Position(1,0),False),
               },
         2  : {
                 0 : Conway(Position(2,0),False),
-                0 : Conway(Position(2,0),False),
-                0 : Conway(Position(2,0),False)
-              }
+                1 : Conway(Position(2,1),True), 
+                2 : Conway(Position(2,2),True), 
+                3 : Conway(Position(2,3),True),
+                4 : Conway(Position(2,4),False)
+              },
+        3  : {
+                0 : Conway(Position(3,0),False),
+                1 : Conway(Position(3,1),False), 
+                2 : Conway(Position(3,2),False), 
+                3 : Conway(Position(3,3),False),
+                4 : Conway(Position(3,4),False),
+              },
+        4  : {
+                0 : Conway(Position(4,0),False),
+                1 : Conway(Position(4,1),False), 
+                2 : Conway(Position(4,2),False), 
+                3 : Conway(Position(4,3),False),
+                4 : Conway(Position(4,4),False),
+              },
     }
     return temp
 
