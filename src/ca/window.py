@@ -1,4 +1,5 @@
 import pygame
+import tempfile
 
 
 class Window():
@@ -24,6 +25,8 @@ class Window():
         self.game = game
         self.plots = plots
         self.frame_dir = frame_dir
+        self._plot_dir_handle = tempfile.\
+                TemporaryDirectory(prefix="celluar_automat_plots_")
 
         # Initialize PyGame
         pygame.init()
@@ -67,7 +70,8 @@ class Window():
                                 (x*plot_width, y*plot_height),
                                 (plot_width, plot_height)))
                     # Draw the plot
-                    plot.draw(self.game, plot_surface)
+                    plot.draw(self.game, plot_surface, 
+                            self._plot_dir_handle.name)
 
         # Tell PyGame the screen has been updated
         pygame.display.update()

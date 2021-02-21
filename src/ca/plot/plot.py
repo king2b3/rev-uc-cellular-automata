@@ -1,16 +1,16 @@
 import abc
+import os
 import pygame
-import tempfile
 
 
 class Plot(abc.ABC):
-    def draw(self, game:"Game", surface:"pygame.Surface") -> None:
+    def draw(self, game:"Game", surface:"pygame.Surface", plot_dir:str) -> None:
         # Make the temporary image file path
-        fid, file_path = tempfile.mkstemp(".png")
+        file_path = os.path.join(plot_dir, f"{self.__class__.__name__}.png")
         # Plot the data
         self.plot(game, file_path)
         # Draw the plot image
-        surface.blit(pygame.image.load(file_path))
+        surface.blit(pygame.image.load(file_path), (0,0))
 
 
     @abc.abstractmethod

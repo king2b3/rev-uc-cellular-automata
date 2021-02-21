@@ -59,4 +59,5 @@ class AlivePlot(Plot):
 
         plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w',
                 orientation='portrait', transparent=False)
+        plt.close(fig)
 
