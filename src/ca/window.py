@@ -43,7 +43,7 @@ class Window():
                 self._cursor_font_size)
 
 
-    def draw(self, cursor_name:str):
+    def draw(self, cursor_name:str, update_plots:bool):
         # Black out the screen
         self._main_surface.fill((0,0,0))
 
@@ -83,7 +83,8 @@ class Window():
                     else:
                         # Draw the plot
                         plot.draw(self.game, plot_surface, 
-                                self._plot_dir_handle.name)
+                                self._plot_dir_handle.name,
+                                update_plots)
 
         # Tell PyGame the screen has been updated
         pygame.display.update()

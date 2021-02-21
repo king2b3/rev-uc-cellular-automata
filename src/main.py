@@ -117,6 +117,7 @@ def main(seconds_between_updates:float=0.5,
 
     started = False
     time_since_last_update = time.perf_counter()
+    window.draw(cursor[0], True)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -148,7 +149,7 @@ def main(seconds_between_updates:float=0.5,
                         if grid_pos is not None:
                             game.insert_entities(cursor[1](), grid_pos, False)
 
-        window.draw(cursor[0])
+        window.draw(cursor[0], started)
         if time.perf_counter() - time_since_last_update\
                 >= seconds_between_updates and started:
             time_since_last_update = time.perf_counter()
