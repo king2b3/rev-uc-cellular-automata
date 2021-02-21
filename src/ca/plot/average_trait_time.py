@@ -27,14 +27,13 @@ class AverageTraitTime(Plot):
 
         x_vals = np.arange(len(self.avgtraits[0]))
 
-        fig = plt.figure(figsize = (height, width))
+        fig = plt.figure(figsize=(height/96 ,width/96))
         ax = plt.plot(x_vals, self.avgtraits[0])
         plt.plot(x_vals, self.avgtraits[1])
         plt.plot(x_vals, self.avgtraits[2])
 
         # print("avige",self.avgtraits)
 
-        plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w', 
-                orientation='portrait', transparent=False)
+        plt.savefig(file_path)
         plt.close(fig) 
 

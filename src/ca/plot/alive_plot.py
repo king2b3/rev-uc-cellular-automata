@@ -45,7 +45,7 @@ class AlivePlot(Plot):
         labels = ['Alive', 'Dead', 'None']
 
        
-        fig = plt.figure(figsize = (height, width))
+        fig = plt.figure(figsize=(height/96 ,width/96))
         ax = fig.add_axes([0,0,0.5,0.5])
         ax.bar(labels,living)
 
@@ -59,7 +59,6 @@ class AlivePlot(Plot):
         #ax.set_xticklabels(labels)
         #ax.legend()
 
-        plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w',
-                orientation='portrait', transparent=False)
+        plt.savefig(file_path)
         plt.close(fig)
 

@@ -25,7 +25,7 @@ class AverageTraits(Plot):
         rows = ['Energy', 'Speed', 'Sense']
         cols = ['Average Values']
 
-        fig = plt.figure(figsize= (height, width), linewidth=2, tight_layout={'pad':1} )
+        fig = plt.figure(figsize=(height/96 ,width/96), linewidth=2, tight_layout={'pad':1})
 
         the_table = plt.table(cellText=traits,
                             rowLabels=rows,
@@ -41,7 +41,6 @@ class AverageTraits(Plot):
 
         # print("trits",traits)
 
-        plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w',
-                orientation='portrait', transparent=False)
+        plt.savefig(file_path)
         plt.close(fig)
 
