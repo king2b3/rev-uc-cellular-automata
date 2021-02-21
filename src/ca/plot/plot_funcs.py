@@ -17,4 +17,5 @@ def average_traits(game:"Game"):
     for t in range(len(totals)):
         traits[t][0] = totals[t][0]/3       
         
-    return traits   
+    return traits
+

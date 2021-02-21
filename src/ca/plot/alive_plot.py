@@ -1,20 +1,22 @@
-
 from .plot import Plot
 import matplotlib.pyplot as plt
 import numpy as np
 from ..game.entity.individual import Individual
 
-class PlotAlive(Plot):
+
+class AlivePlot(Plot):
     def count_alive(self, game:"Game") -> tuple:
-        # Get the information from the game object
-        # Search grid
-        # alive = [number of living cells, number of dead cells, number of empty cells] 
+        """Get the information from the game object
+        Search grid
+        alive = [number of living cells, number of dead cells, number of 
+        empty cells]
+        """
         alive = [0,0,0]
         for x in range(len(game.grid)):
             for y in range(len(game.grid[x])):
                 if isinstance(game.grid[x][y], Individual):
                     # Check if dead or alive
-                    if game.grid[x][y].is_dead():
+                    if game.grid[x][y].is_dead(game):
                         alive[1] += 1
                     else:
                         alive[0] += 1
@@ -49,4 +51,6 @@ class PlotAlive(Plot):
         ax.set_xticklabels(labels)
         ax.legend()
 
-        plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w', orientation='portrait', transparent=False, frameon=None)
+        plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w',
+                orientation='portrait', transparent=False, frameon=None)
+

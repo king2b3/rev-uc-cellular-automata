@@ -1,10 +1,10 @@
-
 from .plot import Plot
 import matplotlib.pyplot as plt
-import plot_funcs
+from .plot_funcs import average_traits
 import numpy as np
 
-class PlotAverage(Plot):
+
+class AverageTraitTime(Plot):
     def __init__(self):
         self.avgtraits = [[],[],[]]
 
@@ -20,7 +20,7 @@ class PlotAverage(Plot):
         file_path: str
             The file path to save the plot to.
         """
-        traits = plot_funcs.average_traits(game)
+        traits = average_traits(game)
         self.avgtraits[0].append(traits[0][0])
         self.avgtraits[1].append(traits[1][0])
         self.avgtraits[2].append(traits[2][0])
@@ -32,5 +32,6 @@ class PlotAverage(Plot):
         plt.plot(x_vals, self.avgtraits[1])
         plt.plot(x_vals, self.avgtraits[2])
 
-        plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w', orientation='portrait', transparent=False, frameon=None)
+        plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w', 
+                orientation='portrait', transparent=False, frameon=None)
         
