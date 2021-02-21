@@ -104,13 +104,6 @@ def main(seconds_between_updates:float=0.5,
 
         # Give it that dead grid
         game = Game(update_mode, grid, boundary_type)
-
-       
-        # Fill it with blinkers
-        for x in range(0, width, 5):
-            for y in range(0, height, 5):
-                game.insert_entities(blinker_horizontal(), Position(x,y), 
-                        False)
     else:
         raise(f"WHAT HAVE YOU DONE. {game_mode.name} IS NOT KNOWN")
 
@@ -129,7 +122,18 @@ def main(seconds_between_updates:float=0.5,
                     return 0
                 elif event.key == pygame.K_SPACE or\
                       event.key == pygame.K_RETURN:
-                    started = True
+                    started = not started
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click_pos = Position(
+                            pygame.mouse.get_pos()[0],
+                            pygame.mouse.get_pos()[1])
+                    grid_pos = game.surface_pos_to_grid_pos(
+                            window._game_subsurface,
+                            click_pos)
+                    if grid_pos is not None:
+                        game.grid[grid_pos.x][grid_pos.y].living =\
+                            not game.grid[grid_pos.x][grid_pos.y].living
 
         window.draw()
         if time.perf_counter() - time_since_last_update\

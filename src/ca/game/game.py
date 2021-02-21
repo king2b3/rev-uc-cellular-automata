@@ -46,6 +46,25 @@ class Game():
         return self._drawing_grid
 
 
+    def surface_pos_to_grid_pos(self, surface:"pygame.Surface",
+            surf_pos:Position) -> None:
+        # Determine the cell sizes
+        cell_width = surface.get_width() / len(self._drawing_grid)
+        cell_height = surface.get_height() / len(self._drawing_grid)
+
+        grid_pos = Position(
+                math.floor(surf_pos.x/cell_width),
+                math.floor(surf_pos.y/cell_height)
+                )
+
+        if grid_pos.x >= len(self._drawing_grid):
+            return None
+        elif grid_pos.y >= len(self._drawing_grid):
+            return None
+        else:
+            return grid_pos
+
+
     def draw(self, surface:"pygame.Surface") -> None:
         # Determine the cell sizes
         cell_width = surface.get_width() / len(self._drawing_grid)
