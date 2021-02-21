@@ -38,12 +38,25 @@ def parse_arguments(args=None) -> None:
     parser.add_argument("-b", "--boundary_type",
             default=BoundaryType.PERIODIC, type=string_to_boundary_type,
             help="The type of boundary condition to use.")
+    def string_to_update_mode(s:str):
+        s = s.upper()
+        if s == "ASYNCHRONOUS":
+            return UpdateMode.ASYNCHRONOUS
+        elif s == "SYNCHRONOUS":
+            return UpdateMode.SYNCHRONOUS
+        else:
+            raise ValueError(f"Unknown update mode: {s}")
+    parser.add_argument("-u", "--update_mode",
+            default=UpdateMode.ASYNCHRONOUS,
+            type=string_to_update_mode,
+            help="The type of update mode to use.")
     args = parser.parse_args(args=args)
     return args
 
 
 def main(seconds_between_updates:float=0.5,
-        boundary_type:BoundaryType=BoundaryType.PERIODIC) -> int:
+        boundary_type:BoundaryType=BoundaryType.PERIODIC,
+        update_mode:UpdateMode=UpdateMode.ASYNCHRONOUS) -> int:
     """Main function.
 
     Parameters
@@ -54,6 +67,9 @@ def main(seconds_between_updates:float=0.5,
     boundary_type: BoundaryType=PERIODIC
         The type of boundary condition to use.
 
+    update_mode: UpdateMode=ASYNCHRONOUS
+        The type of update mode to use.
+
     Returns
     -------
     int
@@ -63,8 +79,8 @@ def main(seconds_between_updates:float=0.5,
     FileNotFoundError
         Means that the input file was not found.
     """
-    game = Game(UpdateMode.ASYNCHRONOUS, blinker_horizontal(),
-            BoundaryType.PERIODIC)
+    game = Game(update_mode, blinker_horizontal(),
+            boundary_type)
     window = Window(game, 
             [AlivePlot(), AverageTraits(), AverageTraitTime(), None], 
             "", 600, 1200)
