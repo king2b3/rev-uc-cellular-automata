@@ -25,20 +25,24 @@ class AverageTraits(Plot):
         rows = ['Energy', 'Speed', 'Sense']
         cols = ['Average Values']
 
+        # Table plot params
+        xmin = 0.05; xmax = 0.85
+        ymin = 0.15; ymax = 0.75
+
         fig = plt.figure(figsize=(height/96 ,width/96), linewidth=2, dpi=96)
-        ax = fig.add_axes([0.1,0.1,0.75,0.75])
+        ax = fig.add_axes([xmin,ymin,xmax,ymax])
         ax.table(cellText=traits,
                             rowLabels=rows,
-                            rowLoc='right',
+                            rowLoc='center',
                             colLabels=cols,
-                            colWidths=[0.3],
-                            loc='center')
+                            colWidths=[0.5],
+                            loc='center',
+                            fontsize=14)
         #ax.scale(1, 1.5)# Hide axes
         ax = plt.gca()
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)# Hide axes border
         plt.box(on=None)
 
-        # print("trits",traits)
         plt.savefig(file_path, dpi = 120)
         plt.close(fig)

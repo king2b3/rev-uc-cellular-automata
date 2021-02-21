@@ -48,7 +48,6 @@ class AlivePlot(Plot):
         """
 
         living = self.count_alive(game)
-        # print(living)
 
         #Plotting Parameters
         barwidth = 0.1
@@ -66,7 +65,7 @@ class AlivePlot(Plot):
 
         key_index = 0
         for key in living:
-           #plot living[key] with a check for None Type
+           # plot living[key] with a check for None Type
             if living[key] == 'None':
                 ax.bar(x_vals[-1] + barwidth/unique_entities, living[key], barwidth, label="Empty Cells")
             else:
@@ -77,10 +76,8 @@ class AlivePlot(Plot):
         ax.set_title('Population Totals')
         ax.set_xticks(x_vals)
         ax.set(xlim=(-0.5, len(labels)-0.5))
-        ax.set_xticklabels(labels)
-        
+        ax.set_xticklabels(labels)   
         ax.legend()
 
         plt.savefig(file_path, dpi=96)
         plt.close(fig)
-
