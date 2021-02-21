@@ -196,7 +196,10 @@ class Game():
                     return False
                 # Save the new entity
                 self._working_grid[insert_x][insert_y] = grid[x][y]
-
+                self._working_grid[insert_x][insert_y].positions.remove(
+                        Position(x,y))
+                self._working_grid[insert_x][insert_y].positions.append(
+                    Position(insert_x,insert_y))
         self._drawing_grid = copy.deepcopy(self._working_grid)
 
 
