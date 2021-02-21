@@ -41,16 +41,22 @@ class AlivePlot(Plot):
         living = self.count_alive(game)
 
         labels = ['Alive', 'Dead', 'None']
-        fig, ax = plt.figure()
-        rects = ax.bar(np.arange(len(living)),living,0.35)
+
+       
+        fig = plt.figure()
+        ax = fig.add_axes([0,0,0.5,0.5])
+        ax.bar(labels,living)
+
+        #fig = plt.figure()
+        #ax = plt.bar(np.arange(len(living)),living,0.35)
         # Add some text for labels, title and custom x-axis tick labels, etc.
         ax.set_xlabel('X Label')
         ax.set_ylabel('Y Label')
         ax.set_title('Title')
-        ax.set_xticks(np.arange(len(living)))
-        ax.set_xticklabels(labels)
-        ax.legend()
+        #ax.set_xticks(np.arange(len(living)))
+        #ax.set_xticklabels(labels)
+        #ax.legend()
 
         plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w',
-                orientation='portrait', transparent=False, frameon=None)
+                orientation='portrait', transparent=False)
 

@@ -42,5 +42,5 @@ class AverageTraits(Plot):
         plt.box(on=None)
 
         plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w',
-                orientation='portrait', transparent=False, frameon=None)
+                orientation='portrait', transparent=False)
         

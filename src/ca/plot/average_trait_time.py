@@ -33,5 +33,5 @@ class AverageTraitTime(Plot):
         plt.plot(x_vals, self.avgtraits[2])
 
         plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w', 
-                orientation='portrait', transparent=False, frameon=None)
+                orientation='portrait', transparent=False)
         
