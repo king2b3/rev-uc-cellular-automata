@@ -42,4 +42,3 @@ class AverageTraits(Plot):
         # print("trits",traits)
         plt.savefig(file_path, dpi = 120)
         plt.close(fig)
-
