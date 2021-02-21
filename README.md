@@ -38,6 +38,8 @@ A gif of the simulation gets saved in the directory that you ran the main. NOTE 
 ## Comments
 We first wanted to test our framework by implementing the Game of Life, so have fun and see what you can make! *It turns out this was all we could do, bit off more we can chew ;)*
 
+---
+
 # Cellular Simulation
 ***NOT COMPLETE***
 
