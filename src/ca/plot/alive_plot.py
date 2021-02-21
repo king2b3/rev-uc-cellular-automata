@@ -11,19 +11,28 @@ class AlivePlot(Plot):
         alive = [number of living cells, number of dead cells, number of 
         empty cells]
         """
-        alive = [0,0,0]
+        test = {'None': [0]}
         for x in range(len(game.grid)):
             for y in range(len(game.grid[x])):
-                if isinstance(game.grid[x][y], Individual):
-                    # Check if dead or alive
-                    if game.grid[x][y].is_dead(game):
-                        alive[1] += 1
-                    else:
-                        alive[0] += 1
+                if game.grid[x][y] is None:
+                    test['None'] += 1
                 else:
-                    alive[2] += 1
+                    occupant_name = game.grid[x][y].__class__.__name__
+                    if occupant_name in test:
+                        # Check if dead or alive
+                        if game.grid[x][y].is_dead(game):
+                            test[occupant_name][1] += 1
+                        else:
+                            test[occupant_name][0] += 1
+                    else:
+                        # Check if dead or alive
+                        test[occupant_name] = [0,0]
+                        if game.grid[x][y].is_dead(game):
+                            test[occupant_name][1] += 1
+                        else:
+                            test[occupant_name][0] += 1
                 
-        return alive   
+        return test   
 
 
     def plot(self, game:"Game", file_path:str, height:int, width:int) -> None:
@@ -39,25 +48,44 @@ class AlivePlot(Plot):
         """
 
         living = self.count_alive(game)
+        # print(living)
 
-        # print("living",living)
-
+        #Plotting Parameters
+        barwidth = 0.1
+        xmin = 0.2; xmax = 0.75
+        ymin = 0.15; ymax = 0.75
         labels = ['Alive', 'Dead', 'None']
+        x_vals = np.arange(len(labels))
 
-       
+        unique_entities = len(living)
+        barwidth = (xmax - xmin) / len(living)
+
+        #Set Up Figure
         fig = plt.figure(figsize=(height/96 ,width/96), dpi=96)
-        ax = fig.add_axes([0.2,0.15,0.75,0.75])
-        ax.bar(labels,living)
+        ax = fig.add_axes([xmin,ymin,xmax,ymax])
 
+
+        for key in living:
+           #plot living[key] with a check for None Type
+            if living[key] == 'None':
+                ax.bar(x_vals[-1] + barwidth/unique_entities, living[key], barwidth, label="Empty Desolate Wasteland")
+            else:
+                ax.bar(x_vals[0:2] - barwidth/unique_entities, living[key], barwidth, label="Something")
+
+
+
+
+        ax.set_ylabel('Total')
+        ax.set_title('Population Totals')
+        ax.set_xticks(x_vals)
+        ax.set(xlim=(-0.5, len(labels)-0.5))
+        ax.set_xticklabels(labels)
         #fig = plt.figure()
         #ax = plt.bar(np.arange(len(living)),living,0.35)
         # Add some text for labels, title and custom x-axis tick labels, etc.
         # ax.set_xlabel('X Label')
-        ax.set_ylabel('Total')
-        ax.set_title('Population Totals')
-        #ax.set_xticks(np.arange(len(living)))
-        #ax.set_xticklabels(labels)
-        #ax.legend()
+        
+        ax.legend()
 
         plt.savefig(file_path, dpi=96)
         plt.close(fig)
