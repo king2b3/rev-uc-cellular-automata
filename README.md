@@ -1,5 +1,5 @@
 # rev-uc-cellular-automata
-REV UC Hackathon project 
+REV UC Hackathon project - Most Innovative Grad Hack (EECS-GSA)
 
 A modular evolutionary framework to explore topics in Cellular Automata. The two ideas we tried to implement are explained below (Conway's Game of Life, and Hostile Evolutionary Environment).
 [Video demo for the hackaton](https://www.youtube.com/watch?v=0ZGbIKd0XrM)
