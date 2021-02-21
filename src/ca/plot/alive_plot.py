@@ -64,16 +64,16 @@ class AlivePlot(Plot):
         fig = plt.figure(figsize=(height/96 ,width/96), dpi=96)
         ax = fig.add_axes([xmin,ymin,xmax,ymax])
 
+        print(int(1/2))
 
+        key_index = 0
         for key in living:
            #plot living[key] with a check for None Type
             if living[key] == 'None':
                 ax.bar(x_vals[-1] + barwidth/unique_entities, living[key], barwidth, label="Empty Desolate Wasteland")
             else:
-                ax.bar(x_vals[0:2] - barwidth/unique_entities, living[key], barwidth, label="Something")
-
-
-
+                ax.bar(x_vals[0:2] + (key_index - (int((unique_entities-1)/2)))*barwidth/unique_entities, living[key], barwidth, label="Something")
+                key_index+=1
 
         ax.set_ylabel('Total')
         ax.set_title('Population Totals')
