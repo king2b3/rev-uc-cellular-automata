@@ -1,4 +1,5 @@
 from .individual import Individual
+import math
 
 class Predator(Individual):
     def __init__(self, positions:"Position", energy:float, speed:float, sense:float,
@@ -21,3 +22,10 @@ class Predator(Individual):
     
     def chase(self, game:"Game") -> None:
         ...
+
+
+    def draw(self, surface:"pygame.Surface") -> None:
+        # highest energy color = (255,0,0) red
+        # lowest energy color = (255,100,0) orange
+        red_scale = int(math.floor(100 * (1-self.energy)))
+        surface.fill(255,red_scale,0))
