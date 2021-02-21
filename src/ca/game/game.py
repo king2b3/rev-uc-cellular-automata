@@ -80,11 +80,12 @@ class Game():
         max_position = Position(len(self.grid), len(self.grid))
         for x in self._working_grid:
             for y in self._working_grid[x]:
+                #print(f"Potential neighbor at X{x} and Y{y}")
                 if Position(x,y) not in recorded_positions:
-                    entity = self._working_grid[x][y]
+                    entity = self.grid[x][y]
                     for pos in entity.positions:
-                        if position.distance(pos, metric, 
-                                self.boundary_type, max_position) <= radius:
+                        dist = position.distance(pos, metric, self.boundary_type, max_position)
+                        if  dist <= radius and dist != 0:
                             yield entity
                     recorded_positions.extend(entity.positions)
 
@@ -106,12 +107,12 @@ class Game():
         updated = defaultdict(lambda: defaultdict(lambda: False))
 
         # Go through each entity, asking it to make a move.
-        for x in self._working_grid:
-            for y in self._working_grid[x]:
+        for x in self._drawing_grid:
+            for y in self._drawing_grid[x]:
                 # Has it already been updated?
                 if not updated[x][y]:
                     # Is an individual?
-                    if isinstance(self._working_grid[x][y], Individual):
+                    if isinstance(self._drawing_grid[x][y], Individual):
                         self._working_grid[x][y].make_move(self)
                         # Mark every position of this individual
                         # as updated
