@@ -55,7 +55,6 @@ class Window():
                     / (len(self.plots)//2)
             plot_height = self._plot_subsurface.get_height() \
                     / (len(self.plots)//2)
-            print(f"{plot_width} {plot_height}")
             plot_number = 0
             for x in range(len(self.plots)//2):
                 for y in range(len(self.plots)//2):
