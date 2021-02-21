@@ -25,7 +25,9 @@ class PlotAverage(Plot):
         traits = totals.copy()
         for t in range(len(totals)):
             traits[t][0] = totals[t][0]/3       
-        self.avgtraits.append(traits)
+        self.avgtraits[0].append(traits[0][0])
+        self.avgtraits[1].append(traits[1][0])
+        self.avgtraits[2].append(traits[2][0])
             
         return traits   
 
@@ -71,5 +73,8 @@ class PlotAverage(Plot):
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)# Hide axes border
         plt.box(on=None)
+        
+        plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w', orientation='portrait', transparent=False, frameon=None)
 
-        ...
+        return
+        
