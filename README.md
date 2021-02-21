@@ -18,6 +18,30 @@ from the project base directory you could run the command line arguments of `pyt
 
 Right now, a few of the commands for the arg parsing are a little pointless, since we didn't complete as much as we planned. 
 
+Full list of the current arguments that can be parsed.
+```
+usage: main.py [-h] [-sf SAVE_FILE] [-sbu SECONDS_BETWEEN_UPDATES]
+               [-b BOUNDARY_TYPE] [-u UPDATE_MODE] [-gm GAME_MODE]
+               
+optional arguments:
+  -h, --help            show this help message and exit
+  -sf SAVE_FILE, --save_file SAVE_FILE
+                        The name to save a gif of the simulation to (default:
+                        save.gif)
+  -sbu SECONDS_BETWEEN_UPDATES, --seconds_between_updates SECONDS_BETWEEN_UPDATES
+                        The number of seconds between each update of the game
+                        (default: 0.5)
+  -b BOUNDARY_TYPE, --boundary_type BOUNDARY_TYPE
+                        The type of boundary condition to use. (default:
+                        BoundaryType.PERIODIC)
+  -u UPDATE_MODE, --update_mode UPDATE_MODE
+                        The type of update mode to use. (default:
+                        UpdateMode.ASYNCHRONOUS)
+  -gm GAME_MODE, --game_mode GAME_MODE
+                        The type of game mode to use. (default:
+                        GameMode.CONWAY)
+```
+
 # **Features**
 
 # Conway's Game of Life
