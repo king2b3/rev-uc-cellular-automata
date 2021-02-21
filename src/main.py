@@ -128,6 +128,14 @@ def main(seconds_between_updates:float=0.5,
                     started = not started
                 elif event.key == pygame.K_SPACE:
                     cursor = next(formation_generator)
+                elif event.key == pygame.K_c:
+                    if game_mode == GameMode.CONWAY:
+                        grid = {}
+                        for x in range(width):
+                            grid[x] = {}
+                            for y in range(height):
+                                grid[x][y] = Conway(Position(x,y), False)
+                        game.insert_entities(grid, Position(0,0), False)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click_pos = Position(
@@ -139,10 +147,8 @@ def main(seconds_between_updates:float=0.5,
                     if game_mode == GameMode.CONWAY:
                         if grid_pos is not None:
                             game.insert_entities(cursor[1](), grid_pos, False)
-                            # game.grid[grid_pos.x][grid_pos.y].living =\
-                                # not game.grid[grid_pos.x][grid_pos.y].living
 
-        window.draw()
+        window.draw(cursor[0])
         if time.perf_counter() - time_since_last_update\
                 >= seconds_between_updates and started:
             time_since_last_update = time.perf_counter()
