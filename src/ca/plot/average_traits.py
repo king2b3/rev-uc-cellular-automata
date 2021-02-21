@@ -6,7 +6,7 @@ from ..game.entity.individual import Individual
 
 
 class AverageTraits(Plot):
-    def plot(self, game:"Game", file_path:str) -> None:
+    def plot(self, game:"Game", file_path:str, height:int, width:int) -> None:
         """Plot the game information saving the plot to the given
         file path
 
@@ -25,9 +25,7 @@ class AverageTraits(Plot):
         rows = ['Energy', 'Speed', 'Sense']
         cols = ['Average Values']
 
-        fig = plt.figure(linewidth=2,
-                tight_layout={'pad':1}
-                )
+        fig = plt.figure(figsize= (height, width), linewidth=2, tight_layout={'pad':1} )
 
         the_table = plt.table(cellText=traits,
                             rowLabels=rows,
@@ -40,6 +38,8 @@ class AverageTraits(Plot):
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)# Hide axes border
         plt.box(on=None)
+
+        # print("trits",traits)
 
         plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w',
                 orientation='portrait', transparent=False)

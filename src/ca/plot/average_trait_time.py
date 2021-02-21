@@ -9,7 +9,7 @@ class AverageTraitTime(Plot):
         self.avgtraits = [[],[],[]]
 
 
-    def plot(self, game:"Game", file_path:str) -> None:
+    def plot(self, game:"Game", file_path:str, height:int, width:int) -> None:
         """Plot the game information saving the plot to the given
         file path
 
@@ -27,10 +27,12 @@ class AverageTraitTime(Plot):
 
         x_vals = np.arange(len(self.avgtraits[0]))
 
-        fig = plt.figure()
+        fig = plt.figure(figsize = (height, width))
         ax = plt.plot(x_vals, self.avgtraits[0])
         plt.plot(x_vals, self.avgtraits[1])
         plt.plot(x_vals, self.avgtraits[2])
+
+        # print("avige",self.avgtraits)
 
         plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w', 
                 orientation='portrait', transparent=False)
