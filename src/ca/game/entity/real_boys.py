@@ -1,63 +1,97 @@
 from .individual import Individual
+from .position import Position
 import math
 import random
+from .errors import UnknownCellType
+# entity types to compare 
+from .predator import Predator
+from .prey import Prey
+from .food import Food
+from .blank import Blank
 
 class Real_Boys(Individual):
     def __init__(self, positions:"Position", energy:float, speed:float, sense:float,
-            agression:float, flee:float):
+            agression:float):
         super().__init__(positions, energy, speed, sense)
         self.agression = agression
-        self.flee = flee
+        #self.flee = 1 - agression
 
     
-    def make_move(self, game:"Game") -> None:
+    def make_move(self, game:"Game", min_pred_distance:int=5) -> None:
         moves = []
         for neigh in game.neighbors(self.positions, DistanceMetric.EUCLIDIAN, self.sense):
-            if is_food(game):
-                new_energy = neigh.energy + self.energy_used(game, neigh.position)
-
-            elif is_predator(game):
-                # how far do they need to move to remain safe
-                ...
-
-            elif is_prey(game):
-                new_energy = neigh.energy + self.energy_used(game, neigh.position)
+            if isinstance(neigh,Blank):
+                new_energy = self.energy - self.energy_used(game, neigh.position)
+            
+            elif isinstance(neigh,Real_Boys):
+                # check if they are large or smaller
+                if neigh.size() > self.size():
+                    new_energy = self.flee(game, neigh)
+                else:
+                    new_energy = self.energy + neigh.energy - \
+                            self.energy_used(game, neigh.position)
+            
+            elif isinstance(neigh,Prey) or isinstance(neigh,Food):
+                new_energy = self.energy + neigh.energy - \
+                        self.energy_used(game, neigh.position)
+                
+            elif isinstance(neigh,Predator):
+                new_energy = self.flee(game, neigh)
 
             else:
-                # is a blank cell
-                new_energy = self.energy_used(game, neigh.position)
+                raise UnknownCellType(neigh)
             
-            #append neigh and energy to tuple
-        # preform the move that is the highest rated
+            moves.append((neigh.position,new_energy))
+        # perform the move with the minimum energy needed
     
+    
+    def flee(self, game="Game", predator:"neighbor") -> float:
+        # calculate the distance the two entities are from each other
+        new_x = self.position[0].x - predator.position[0].x
+        new_y = self.position[0].y - predator.position[0].y
+        
+        # find direction prey should go
+        if new_x < 0:
+            # needs to move in the negative x direction
+            new_x -= min_pred_distance
+        else:
+            new_x += min_pred_distance
+        if new_y < 0:
+            # needs to move in the negative y direction
+            new_y -= min_pred_distance
+        else:
+            new_y += min_pred_distance
+        
+        # check if the new location is out of bounds
+        grid_len = len(game.grid)
+        if new_x < 0:
+            # out of bounds left
+            new_x = grid_len - new_x
+        elif new_x > grid_len:
+            # out of bounds right
+            new_x -= grid_len
+        if new_y < 0:
+            # out of bounds bottom
+            new_y = grid_len - new_y
+        elif new_y > grid_len:
+            # out of bounds top
+            new_y -= grid_len
+
+        temp_postion = Position(new_x, new_y)
+        return (self.energy - self.energy_used(game, temp_postion))
+
     
     def energy_used(self, game:"Game", pos:list) -> float:
         """ Returns the energy used to make a move"""
         # need to come up with an equation to use here
+        """
+        figure out s1, s2, s3
+        energy = speed*s1 + sense*s2 + size*s3
+        """
         ...
     
-    
-    def is_food(self, game:"Game") -> None:
-        ...
-
-
-    def is_prey(self, game:"Game") -> None:
-        ...
-
-
-    def is_predator(self, game:"Game") -> None:
-        ...
-
 
     def is_dead(self, game:"Game") -> None:
-        ...
-
-
-    def attack(self, game:"Game") -> None:
-        ...
-
-    
-    def chase(self, game:"Game") -> None:
         ...
     
 

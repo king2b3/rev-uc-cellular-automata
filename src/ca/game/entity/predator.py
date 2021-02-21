@@ -9,20 +9,13 @@ class Predator(Individual):
 
     
     def make_move(self, game:"Game") -> None:
+        # move is to attack the nearest prey
         ...
 
     
     def is_dead(self, game:"Game") -> None:
         ...
     
-
-    def attack(self, game:"Game") -> None:
-        ...
-
-    
-    def chase(self, game:"Game") -> None:
-        ...
-
 
     def draw(self, surface:"pygame.Surface") -> None:
         # highest energy color = (255,0,0) red
