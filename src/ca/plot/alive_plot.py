@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class PlotAlive(Plot):
-    def draw(self, surface:"pygame.Surface") -> None:
-        raise NotImplementedError
 
     def count_alive(self, game:"Game") -> tuple:
         # Get the information from the game object
@@ -49,8 +47,7 @@ class PlotAlive(Plot):
         ax.set_xticks(np.arange(len(living)))
         ax.set_xticklabels(labels)
         ax.legend()
-        
+
         plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w', orientation='portrait', transparent=False, frameon=None)
 
         return
-
