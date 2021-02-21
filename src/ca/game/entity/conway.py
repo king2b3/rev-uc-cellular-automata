@@ -41,11 +41,33 @@ class Conway(Individual):
         surface.fill(color)
 
 
-####### Initial Formations #######
+####### Initial Formations #######a
+FORMATIONS = {}
+
+def next_formation():
+    while True:
+        for formation in FORMATIONS:
+            yield formation, FORMATIONS[formation]
+
+
+def add_formation(formation):
+    FORMATIONS[formation.__name__] = formation
+
 
 ####### Stationary #######
+@add_formation
+def single() -> dict:
+    """ 1x1 block """
+    temp = {
+        0  : {
+                0 : Conway(Position(0,0),True)
+                }
+        }
+    return temp
 
-def block(x,y) -> dict:
+
+@add_formation
+def block() -> dict:
     """ 4x4 block """
     temp = {
         0  : {
@@ -76,6 +98,7 @@ def block(x,y) -> dict:
     return temp
 
 
+@add_formation
 def tub() -> dict:
     """ 3x3 Tub """
     temp = {
@@ -98,6 +121,7 @@ def tub() -> dict:
     return temp
 
 
+@add_formation
 def boat() -> dict:
     """ 3x3 Boat """
     temp = {
@@ -120,6 +144,7 @@ def boat() -> dict:
     return temp
 
 
+@add_formation
 def snake() -> dict:
     """ 4x2 Sanake """
     temp = {
@@ -139,6 +164,7 @@ def snake() -> dict:
     return temp
 
 
+@add_formation
 def ship() -> dict:
     """ 3x3 Ship """
     temp = {
@@ -161,6 +187,7 @@ def ship() -> dict:
     return temp
 
 
+@add_formation
 def aircraft_carrier() -> dict:
     """ 4x3 Aircraft Carrier """
     temp = {
@@ -186,6 +213,7 @@ def aircraft_carrier() -> dict:
     return temp
 
 
+@add_formation
 def beehive() -> dict:
     """ 4x3 Beehive """
     temp = {
@@ -211,6 +239,7 @@ def beehive() -> dict:
     return temp
 
 
+@add_formation
 def barge() -> dict:
     """ 4x4 Barge """
     temp = {
@@ -242,6 +271,7 @@ def barge() -> dict:
     return temp
 
 
+@add_formation
 def python() -> dict:
     """ 3x5 Python """
     temp = {
@@ -270,6 +300,7 @@ def python() -> dict:
     return temp
 
 
+@add_formation
 def long_boat() -> dict:
     """ 4x4 Long Boat """
     temp = {
@@ -301,6 +332,7 @@ def long_boat() -> dict:
     return temp
 
 
+@add_formation
 def fishhook() -> dict:
     """ 4x4 Fishhook """
     temp = {
@@ -332,6 +364,7 @@ def fishhook() -> dict:
     return temp
 
 
+@add_formation
 def loaf() -> dict:
     """ 4x4 Loaf """
     temp = {
@@ -363,6 +396,7 @@ def loaf() -> dict:
     return temp
 
 
+@add_formation
 def human() -> dict:
     """ 9x7 Human """
     temp = {
@@ -452,7 +486,7 @@ def human() -> dict:
 
 
 ####### Movement #######
-
+@add_formation
 def glider() -> dict:
     """ 3x5 Glider """
     temp = {
@@ -480,6 +514,8 @@ def glider() -> dict:
     }
     return temp
 
+
+@add_formation
 def blinker_horizontal() -> dict:
     """ 5x5 Blinker Horizontal """
     temp = {
@@ -522,6 +558,8 @@ def blinker_horizontal() -> dict:
     }
     return temp
 
+
+@add_formation
 def blinker_vertical() -> dict:
     """ 5x5 Blinker Vertical """
     temp = {
@@ -565,6 +603,7 @@ def blinker_vertical() -> dict:
     return temp
 
 
+@add_formation
 def repeater_tetris() -> dict:
     """ Repeating shape that looks like a tetris shape"""
     temp = {
