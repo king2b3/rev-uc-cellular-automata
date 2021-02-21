@@ -86,7 +86,6 @@ class Game():
                     for pos in entity.positions:
                         dist = position.distance(pos, metric, self.boundary_type, max_position)
                         if  dist <= radius and dist != 0:
-                            print(f"neighbor found at X{x} and Y{y} that is {entity.living}")
                             yield entity
                     recorded_positions.extend(entity.positions)
 
@@ -110,7 +109,6 @@ class Game():
         # Go through each entity, asking it to make a move.
         for x in self._drawing_grid:
             for y in self._drawing_grid[x]:
-                print(f"\nThe cell we are looking at is X{x} Y{y}")
                 # Has it already been updated?
                 if not updated[x][y]:
                     # Is an individual?

@@ -9,16 +9,11 @@ class Conway(Individual):
 
 
     def make_move(self, game:"Game") -> None:
-        print("#######################################")
-        print(f"State:{self.living}")
         living_neighbors = 0
         for neigh in game.neighbors(self.positions[0], 
                 DistanceMetric.EUCLIDIAN, 1.5):
             if not neigh.is_dead(game):
-                print(f"x:{neigh.positions[0].x} y:{neigh.positions[0].y}")
-                #print(neigh.living)
                 living_neighbors += 1
-        print(f"living neighbors {living_neighbors}")
         
 
         if self.living:
