@@ -6,8 +6,9 @@ import numpy as np
 
 class AverageTraitTime(Plot):
     def __init__(self):
-        self.avgtraits = {}
-        # [[],[],[]]
+        #self.avgtraits = {}
+        self.avgtraits = [[],[],[]]
+        
 
 
     def plot(self, game:"Game", file_path:str, height:int, width:int) -> None:
@@ -21,19 +22,17 @@ class AverageTraitTime(Plot):
         file_path: str
             The file path to save the plot to.
         """
+        traits = [[1],[1],[1]]
+        x_vals = len(self.avgtraits[0])
+        """WE FIXING SHIT
         traits = average_traits(game)
-        """occupant_name = game.grid[x][y].__class__.__name__
 
-        if occupant_name in self.avgtraits:
-            self.avgtraits[occupant_name][0].append(traits[0][0])
-            self.avgtraits[occupant_name][1].append(traits[1][0])
-            self.avgtraits[occupant_name][2].append(traits[2][0])
-        else:
-            self.avgtraits[occupant_name] = traits
+        print(traits)
+
+        x_vals_e = np.arange(len(self.avgtraits[0]))
+        x_vals_sp = np.arange(len(self.avgtraits[0]))
+        x_vals_se = np.arange(len(self.avgtraits[0]))
         """
-
-        x_vals = np.arange(len(self.avgtraits[0]))
-
         fig = plt.figure(figsize=(height/96 ,width/96),dpi=120)
         ax = fig.add_axes([0.3,0.2,0.6,0.6])
         
@@ -41,9 +40,9 @@ class AverageTraitTime(Plot):
         ax.set_ylabel('Trait Averages')
         ax.set_title('Traits over Time')
         plt.ylim((0.0,1.0))
-        ax.plot(x_vals, self.avgtraits[0], color='red', label='ENERGY')
-        plt.plot(x_vals, self.avgtraits[1], color='green', label='SPEED')
-        plt.plot(x_vals, self.avgtraits[2], color='blue', label='SENSE')
+        ax.plot(1, 1, color='red', label='ENERGY')
+        #ax.plot(x_vals, self.avgtraits[1], color='green', label='SPEED')
+        #ax.plot(x_vals, self.avgtraits[2], color='blue', label='SENSE')
         ax.legend()
 
         # print("avige",self.avgtraits)
