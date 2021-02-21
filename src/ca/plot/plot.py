@@ -8,13 +8,15 @@ class Plot(abc.ABC):
         # Make the temporary image file path
         file_path = os.path.join(plot_dir, f"{self.__class__.__name__}.png")
         # Plot the data
-        self.plot(game, file_path)
+        self.plot(game, file_path, surface.get_height(), 
+                surface.get_width())
         # Draw the plot image
         surface.blit(pygame.image.load(file_path), (0,0))
 
 
     @abc.abstractmethod
-    def plot(self, game:"Game", file_path:str) -> None:
+    def plot(self, game:"Game", file_path:str, height:int, width:int)\
+            -> None:
         """Plot the game information saving the plot to the given
         file path
 

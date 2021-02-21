@@ -26,7 +26,7 @@ class AlivePlot(Plot):
         return alive   
 
 
-    def plot(self, game:"Game", file_path:str) -> None:
+    def plot(self, game:"Game", file_path:str, height:int, width:int) -> None:
         """Plot the game information saving the plot to the given
         file path
 
@@ -40,10 +40,12 @@ class AlivePlot(Plot):
 
         living = self.count_alive(game)
 
+        # print("living",living)
+
         labels = ['Alive', 'Dead', 'None']
 
        
-        fig = plt.figure()
+        fig = plt.figure(figsize=(height/96 ,width/96))
         ax = fig.add_axes([0,0,0.5,0.5])
         ax.bar(labels,living)
 
@@ -57,7 +59,6 @@ class AlivePlot(Plot):
         #ax.set_xticklabels(labels)
         #ax.legend()
 
-        plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w',
-                orientation='portrait', transparent=False)
+        plt.savefig(file_path)
         plt.close(fig)
 

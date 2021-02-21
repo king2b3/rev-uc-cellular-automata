@@ -52,9 +52,9 @@ class Window():
                 raise ValueError("Number of plots must be an even number")
 
             plot_width = self._plot_subsurface.get_width() \
-                    / len(self.plots)
+                    / (len(self.plots)//2)
             plot_height = self._plot_subsurface.get_height() \
-                    / len(self.plots)
+                    / (len(self.plots)//2)
             plot_number = 0
             for x in range(len(self.plots)//2):
                 for y in range(len(self.plots)//2):
