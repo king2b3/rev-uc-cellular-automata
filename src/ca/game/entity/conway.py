@@ -478,31 +478,6 @@ def glider() -> dict:
                 4 : Conway(Position(0,4),True)
               }
     }
-    
-    # old ones
-    temp = {
-        0  : {
-                0 : Conway(Position(0,0),True), 
-                1 : Conway(Position(0,1),True), 
-                2 : Conway(Position(0,2),False),
-                3 : Conway(Position(0,3),False),
-                4 : Conway(Position(0,4),False)
-              },
-        1  : {
-                0 : Conway(Position(1,0),True), 
-                1 : Conway(Position(1,1),False), 
-                2 : Conway(Position(1,2),True),
-                3 : Conway(Position(1,3),False),
-                4 : Conway(Position(0,4),True)
-              },
-        2  : {
-                0 : Conway(Position(2,0),False), 
-                1 : Conway(Position(2,1),False), 
-                2 : Conway(Position(2,2),False),
-                3 : Conway(Position(2,3),True),
-                4 : Conway(Position(0,4),True)
-              }
-    }
     return temp
 
 def blinker_horizontal() -> dict:
