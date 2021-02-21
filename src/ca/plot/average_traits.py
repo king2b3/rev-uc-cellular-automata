@@ -40,7 +40,7 @@ class AverageTraits(Plot):
         plt.box(on=None)
 
         # print("trits",traits)
-
-        plt.savefig(file_path)
+        deeps = int(300/96)
+        plt.savefig(file_path, dpi = 96)
         plt.close(fig)
 

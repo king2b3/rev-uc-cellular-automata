@@ -34,6 +34,6 @@ class AverageTraitTime(Plot):
 
         # print("avige",self.avgtraits)
 
-        plt.savefig(file_path)
+        plt.savefig(file_path,dpi=96)
         plt.close(fig) 
 
