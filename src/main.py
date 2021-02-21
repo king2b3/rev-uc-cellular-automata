@@ -48,7 +48,7 @@ def main(seconds_between_updates:float=0.5) -> int:
     FileNotFoundError
         Means that the input file was not found.
     """
-    game = Game(UpdateMode.ASYNCHRONOUS, blinker_vertical(),
+    game = Game(UpdateMode.ASYNCHRONOUS, blinker_horizontal(),
             BoundaryType.PERIODIC)
     window = Window(game, [None, None, None, None], "", 600, 1200)
 
