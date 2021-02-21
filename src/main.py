@@ -8,6 +8,7 @@ import time
 
 from ca.game.entity.conway import blinker_vertical
 from ca.game import Game, UpdateMode, BoundaryType
+from ca.plot import PlotAlive, PlotAverage
 from ca.window import Window
 
 
@@ -47,8 +48,9 @@ def main(seconds_between_updates:float=0.5) -> int:
     FileNotFoundError
         Means that the input file was not found.
     """
-    game = Game(UpdateMode.ASYNCHRONOUS, blinker_vertical(), BoundaryType.PERIODIC)
-    window = Window(game, [], "", 600, 1200)
+    game = Game(UpdateMode.ASYNCHRONOUS, blinker_vertical(),
+            BoundaryType.PERIODIC)
+    window = Window(game, [None, None, None, None], "", 600, 1200)
 
     time_since_last_update = time.perf_counter()
     while True:

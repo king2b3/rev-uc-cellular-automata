@@ -45,7 +45,29 @@ class Window():
 
         # Draw each plot
         if len(self.plots) > 0:
-            raise NotImplementedError
+            if len(self.plots) % 2 != 0:
+                raise ValueError("Number of plots must be an even number")
+
+            plot_width = self._plot_subsurface.get_width() \
+                    / len(self.plots)
+            plot_height = self._plot_subsurface.get_height() \
+                    / len(self.plots)
+            plot_number = 0
+            for x in range(len(self.plots)//2):
+                for y in range(len(self.plots)//2):
+                    # Get the plot
+                    plot = self.plots[plot_number]
+                    plot_number += 1
+                    # Check if it's an empty plot
+                    if plot is None:
+                        continue
+                    # Prepare the surface
+                    plot_surface = self._plot_subsurface.subsurface(
+                            pygame.Rect(
+                                (x*plot_width, y*plot_height),
+                                (plot_width, plot_height)))
+                    # Draw the plot
+                    plot.draw(self.game, plot_surface)
 
         # Tell PyGame the screen has been updated
         pygame.display.update()
