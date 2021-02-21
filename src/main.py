@@ -27,17 +27,32 @@ def parse_arguments(args=None) -> None:
     parser.add_argument("-sbu", "--seconds_between_updates",
             default=0.5, type=lambda s: abs(float(s)),
             help="The number of seconds between each update of the game")
+    def string_to_boundary_type(s:str):
+        s = s.uppper()
+        if s == "PERIODIC":
+            return BoundaryType.PERIODIC
+        elif s == "HARD":
+            return BoundaryType.HARD
+        else:
+            raise ValueError(f"Unknown boundary condition: {s}")
+    parser.add_argument("-b", "--boundary_type",
+            default=BoundaryType.PERIODIC, type=string_to_boundary_type,
+            help="The type of boundary condition to use.")
     args = parser.parse_args(args=args)
     return args
 
 
-def main(seconds_between_updates:float=0.5) -> int:
+def main(seconds_between_updates:float=0.5,
+        boundary_type:BoundaryType=BoundaryType.PERIODIC) -> int:
     """Main function.
 
     Parameters
     ----------
     seconds_between_updates: float=0.5
         The number of seconds between each update of the game.
+
+    boundary_type: BoundaryType=PERIODIC
+        The type of boundary condition to use.
 
     Returns
     -------
