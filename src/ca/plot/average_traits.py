@@ -6,7 +6,7 @@ from ..game.entity.individual import Individual
 
 
 class AverageTraits(Plot):
-    def plot(self, game:"Game", file_path:str) -> None:
+    def plot(self, game:"Game", file_path:str, height:int, width:int) -> None:
         """Plot the game information saving the plot to the given
         file path
 
