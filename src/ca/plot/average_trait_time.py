@@ -7,8 +7,6 @@ import numpy as np
 class AverageTraitTime(Plot):
     def __init__(self):
         self.avgtraits = {}
-        #self.avgtraits = [[],[],[]]
-        
 
 
     def plot(self, game:"Game", file_path:str, height:int, width:int) -> None:
@@ -38,7 +36,7 @@ class AverageTraitTime(Plot):
         # Create the figure before plotting and set all non-variable params
         fig = plt.figure(figsize=(height/96 ,width/96),dpi=120)
         ax = fig.add_axes([0.3,0.2,0.6,0.6])
-        ax.set_xlabel('Time Step?')
+        ax.set_xlabel('Time Step')
         ax.set_ylabel('Trait Averages')
         ax.set_title('Traits over Time')
         plt.ylim((0.0,1.0))
@@ -50,11 +48,7 @@ class AverageTraitTime(Plot):
             ax.plot(x_vals_e, self.avgtraits[key][0], color='red', label=key + '_Energy')
             ax.plot(x_vals_sp, self.avgtraits[key][1], color='green', label=key + '_Speed')
             ax.plot(x_vals_se, self.avgtraits[key][2], color='blue', label=key + '_Sense')
-        
-
-        # print("avige",self.avgtraits)
 
         ax.legend(fontsize=4)
         plt.savefig(file_path,dpi=96)
         plt.close(fig) 
-
