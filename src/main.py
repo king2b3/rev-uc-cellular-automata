@@ -111,8 +111,7 @@ def main(seconds_between_updates:float=0.5,
         raise(f"WHAT HAVE YOU DONE. {game_mode.name} IS NOT KNOWN")
 
     window = Window(game, 
-            # [AlivePlot(), AverageTraits(), AverageTraitTime(), None], 
-            [ None, None, None, None],
+            [AlivePlot(), AverageTraits(), AverageTraitTime(), None], 
             "", 600, 1200)
 
 
