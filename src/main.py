@@ -5,6 +5,7 @@ import argparse
 import pygame
 import os
 
+from ca.game.entity.conway import boat
 from ca.game import Game, UpdateMode, BoundaryType
 from ca.window import Window
 
@@ -40,7 +41,7 @@ def main() -> int:
     FileNotFoundError
         Means that the input file was not found.
     """
-    game = Game(UpdateMode.SYNCHRONOUS, {}, BoundaryType.PERIODIC)
+    game = Game(UpdateMode.ASYNCHRONOUS, boat(), BoundaryType.PERIODIC)
     window = Window(game, [], "", 600, 1200)
 
     while True:
@@ -50,7 +51,8 @@ def main() -> int:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return 0
-            window.draw()
+        window.draw()
+        window.update()
 
 
     # Return success code

@@ -52,5 +52,5 @@ class Window():
 
 
     def update(self):
-        raise NotImplementedError
+        self.game.update()
 
