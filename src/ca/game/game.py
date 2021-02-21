@@ -1,6 +1,7 @@
 from collections import defaultdict
 import copy
 from enum import Enum
+import math
 import pygame
 
 from .entity.individual import Individual
@@ -10,6 +11,10 @@ from .entity.position import Position
 class UpdateMode(Enum):
     SYNCHRONOUS=0
     ASYNCHRONOUS=1
+
+
+class GameMode(Enum):
+    CONWAY=0
 
 
 class Game():
@@ -39,6 +44,25 @@ class Game():
     def grid(self):
         """The exposed grid for use in drawing and such"""
         return self._drawing_grid
+
+
+    def surface_pos_to_grid_pos(self, surface:"pygame.Surface",
+            surf_pos:Position) -> None:
+        # Determine the cell sizes
+        cell_width = surface.get_width() / len(self._drawing_grid)
+        cell_height = surface.get_height() / len(self._drawing_grid)
+
+        grid_pos = Position(
+                math.floor(surf_pos.x/cell_width),
+                math.floor(surf_pos.y/cell_height)
+                )
+
+        if grid_pos.x >= len(self._drawing_grid):
+            return None
+        elif grid_pos.y >= len(self._drawing_grid):
+            return None
+        else:
+            return grid_pos
 
 
     def draw(self, surface:"pygame.Surface") -> None:
@@ -78,9 +102,20 @@ class Game():
         """
         recorded_positions = []
         max_position = Position(len(self.grid), len(self.grid))
-        for x in self._working_grid:
-            for y in self._working_grid[x]:
-                #print(f"Potential neighbor at X{x} and Y{y}")
+        for x in range(math.floor(position.x-radius),
+                math.ceil(position.x+radius)):
+            for y in range(math.floor(position.y-radius),
+                math.ceil(position.y+radius)):
+                if x < 0:
+                    x = x + len(self.grid)
+                elif x >= len(self.grid):
+                    x = len(self.grid) - x
+
+                if y < 0:
+                    y = y + len(self.grid)
+                elif y >= len(self.grid):
+                    y = len(self.grid) - y
+
                 if Position(x,y) not in recorded_positions:
                     entity = self.grid[x][y]
                     for pos in entity.positions:
@@ -130,7 +165,7 @@ class Game():
         raise NotImplementedError
 
     
-    def insert_entities(grid:dict, insert_point:"Position", 
+    def insert_entities(self, grid:dict, insert_point:"Position", 
             check_collision:bool=True) -> None:
         """Insert a mini grid of entities described with relative
         positions to the grid at the specified insert point.
@@ -149,10 +184,25 @@ class Game():
             Default is to only allow inserting the new entities if that
             grid space is completely devoid.
         """
-        raise NotImplementedError
+        self._working_grid = copy.deepcopy(self._drawing_grid)
+        for x in grid:
+            for y in grid[x]:
+                insert_x = insert_point.x + x
+                insert_y = insert_point.y + y
+                if self._working_grid[insert_x][insert_y] is not None and \
+                    check_collision:
+                    print(f"Can not insert, collision at x:{insert_x},"
+                        f"y:{insert_y}")
+                    return False
+                # Save the new entity
+                self._working_grid[insert_x][insert_y] = grid[x][y]
+
+        self._drawing_grid = copy.deepcopy(self._working_grid)
 
 
-    def delete_entity(position: "Position") -> None:
+    def delete_entity(self, position: "Position") -> None:
         """Delete the entity that exists within that position"""
-        raise NotImplementedError
+        entity = self.grid[position.x][position.y]
+        for pos in entity.positions:
+            self.grid[pos.x][pos.y] = None
 

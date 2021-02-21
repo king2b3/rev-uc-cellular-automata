@@ -6,8 +6,9 @@ import pygame
 import os
 import time
 
-from ca.game.entity.conway import blinker_horizontal
-from ca.game import Game, UpdateMode, BoundaryType
+from ca.game.entity.conway import Conway, blinker_horizontal
+from ca.game.entity import Position
+from ca.game import Game, UpdateMode, BoundaryType, GameMode
 from ca.plot import AlivePlot, AverageTraits, AverageTraitTime
 from ca.window import Window
 
@@ -50,13 +51,23 @@ def parse_arguments(args=None) -> None:
             default=UpdateMode.ASYNCHRONOUS,
             type=string_to_update_mode,
             help="The type of update mode to use.")
+    def string_to_gamemode(s:str):
+        s = s.upper()
+        if s == "CONWAY":
+            return GameMode.CONWAY
+        else:
+            raise ValueError(f"Unknown game mode: {s}")
+    parser.add_argument("-gm", "--game_mode",
+            default=GameMode.CONWAY, type=string_to_gamemode,
+            help="The type of game mode to use.")
     args = parser.parse_args(args=args)
     return args
 
 
 def main(seconds_between_updates:float=0.5,
         boundary_type:BoundaryType=BoundaryType.PERIODIC,
-        update_mode:UpdateMode=UpdateMode.ASYNCHRONOUS) -> int:
+        update_mode:UpdateMode=UpdateMode.ASYNCHRONOUS,
+        game_mode:GameMode=GameMode.CONWAY) -> int:
     """Main function.
 
     Parameters
@@ -70,6 +81,9 @@ def main(seconds_between_updates:float=0.5,
     update_mode: UpdateMode=ASYNCHRONOUS
         The type of update mode to use.
 
+    game_mode: GameMode=CONWAY
+        The type of game mode to use.
+
     Returns
     -------
     int
@@ -79,12 +93,25 @@ def main(seconds_between_updates:float=0.5,
     FileNotFoundError
         Means that the input file was not found.
     """
-    game = Game(update_mode, blinker_horizontal(),
-            boundary_type)
+    if game_mode == GameMode.CONWAY:
+        # Make an "empty grid" of dead conway cells
+        width = height = 50
+        grid = {}
+        for x in range(width):
+            grid[x] = {}
+            for y in range(height):
+                grid[x][y] = Conway(Position(x,y), False)
+
+        # Give it that dead grid
+        game = Game(update_mode, grid, boundary_type)
+    else:
+        raise(f"WHAT HAVE YOU DONE. {game_mode.name} IS NOT KNOWN")
+
     window = Window(game, 
             [AlivePlot(), AverageTraits(), AverageTraitTime(), None], 
             "", 600, 1200)
 
+    started = False
     time_since_last_update = time.perf_counter()
     while True:
         for event in pygame.event.get():
@@ -93,9 +120,24 @@ def main(seconds_between_updates:float=0.5,
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return 0
+                elif event.key == pygame.K_SPACE or\
+                      event.key == pygame.K_RETURN:
+                    started = not started
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click_pos = Position(
+                            pygame.mouse.get_pos()[0],
+                            pygame.mouse.get_pos()[1])
+                    grid_pos = game.surface_pos_to_grid_pos(
+                            window._game_subsurface,
+                            click_pos)
+                    if grid_pos is not None:
+                        game.grid[grid_pos.x][grid_pos.y].living =\
+                            not game.grid[grid_pos.x][grid_pos.y].living
+
         window.draw()
         if time.perf_counter() - time_since_last_update\
-                >= seconds_between_updates:
+                >= seconds_between_updates and started:
             time_since_last_update = time.perf_counter()
             window.update()
 
