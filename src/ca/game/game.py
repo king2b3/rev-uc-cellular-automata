@@ -13,6 +13,10 @@ class UpdateMode(Enum):
     ASYNCHRONOUS=1
 
 
+class GameMode(Enum):
+    CONWAY=0
+
+
 class Game():
     def __init__(self, update_mode:UpdateMode, grid:dict, 
             boundary_type:"BoundaryType"):
