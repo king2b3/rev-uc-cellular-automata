@@ -30,12 +30,14 @@ class AverageTraitTime(Plot):
         fig = plt.figure(figsize=(height/96 ,width/96),dpi=120)
         ax = fig.add_axes([0.3,0.2,0.6,0.6])
         
-        ax.set_xlabel('X Label')
-        ax.set_ylabel('Y Label')
-        ax.set_title('Title')
-        ax.plot(x_vals, self.avgtraits[0])
-        plt.plot(x_vals, self.avgtraits[1])
-        plt.plot(x_vals, self.avgtraits[2])
+        ax.set_xlabel('Time Step?')
+        ax.set_ylabel('Trait Averages')
+        ax.set_title('Traits over Time')
+        plt.ylim((0.0,1.0))
+        ax.plot(x_vals, self.avgtraits[0], color='red', label='ENERGY')
+        plt.plot(x_vals, self.avgtraits[1], color='green', label='SPEED')
+        plt.plot(x_vals, self.avgtraits[2], color='blue', label='SENSE')
+        ax.legend()
 
         # print("avige",self.avgtraits)
 

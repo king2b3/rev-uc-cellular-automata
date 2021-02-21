@@ -52,9 +52,9 @@ class AlivePlot(Plot):
         #fig = plt.figure()
         #ax = plt.bar(np.arange(len(living)),living,0.35)
         # Add some text for labels, title and custom x-axis tick labels, etc.
-        ax.set_xlabel('X Label')
-        ax.set_ylabel('Y Label')
-        ax.set_title('Title')
+        # ax.set_xlabel('X Label')
+        ax.set_ylabel('Total')
+        ax.set_title('Population Totals')
         #ax.set_xticks(np.arange(len(living)))
         #ax.set_xticklabels(labels)
         #ax.legend()
