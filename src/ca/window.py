@@ -1,3 +1,4 @@
+import os
 import pygame
 import tempfile
 
@@ -27,6 +28,7 @@ class Window():
         self.frame_dir = frame_dir
         self._plot_dir_handle = tempfile.\
                 TemporaryDirectory(prefix="celluar_automat_plots_")
+        self.frame_count = 0
 
         # Initialize PyGame
         pygame.init()
@@ -88,6 +90,10 @@ class Window():
 
         # Tell PyGame the screen has been updated
         pygame.display.update()
+        if self.frame_dir is not None:
+            pygame.image.save(pygame.display.get_surface(),
+                    os.path.join(self.frame_dir, f"{self.frame_count:08}"))
+        self.frame_count += 1
 
 
     def update(self):

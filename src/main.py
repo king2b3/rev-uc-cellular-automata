@@ -2,8 +2,10 @@
 """The main file for our Cellar Automata project"""
 
 import argparse
+import PIL
 import pygame
 import os
+import tempfile
 import time
 
 from ca.game.entity.conway import Conway,\
@@ -26,6 +28,9 @@ def parse_arguments(args=None) -> None:
     parser = argparse.ArgumentParser(
             description="Not much here yet, just wait a day.",
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument("-sf", "--save_file",
+            default="save.gif",
+            help="The name to save a gif of the simulation to")
     parser.add_argument("-sbu", "--seconds_between_updates",
             default=0.5, type=lambda s: abs(float(s)),
             help="The number of seconds between each update of the game")
@@ -65,7 +70,7 @@ def parse_arguments(args=None) -> None:
     return args
 
 
-def main(seconds_between_updates:float=0.5,
+def main(save_file:str, seconds_between_updates:float=0.5,
         boundary_type:BoundaryType=BoundaryType.PERIODIC,
         update_mode:UpdateMode=UpdateMode.ASYNCHRONOUS,
         game_mode:GameMode=GameMode.CONWAY) -> int:
@@ -110,21 +115,24 @@ def main(seconds_between_updates:float=0.5,
     else:
         raise(f"WHAT HAVE YOU DONE. {game_mode.name} IS NOT KNOWN")
 
+    frame_dir_handle = tempfile.\
+            TemporaryDirectory(prefix="celluar_automat_frames_")
     window = Window(game, 
             [AlivePlot(), AverageTraits(), AverageTraitTime(), None], 
-            "", 600, 1200)
+            frame_dir_handle.name, 600, 1200)
 
 
     started = False
     time_since_last_update = time.perf_counter()
     window.draw(cursor[0], True)
-    while True:
+    do_gui = True
+    while do_gui:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return 0
+                do_gui = False 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    return 0
+                    do_gui = False
                 elif event.key == pygame.K_RETURN:
                     started = not started
                 elif event.key == pygame.K_SPACE:
@@ -154,6 +162,23 @@ def main(seconds_between_updates:float=0.5,
                 >= seconds_between_updates and started:
             time_since_last_update = time.perf_counter()
             window.update()
+
+    # Save that gif
+    if save_file is not None:
+        # Opening up every frame and keeping them open will
+        # result in too many files being open.
+        def frames_iter():
+            for root, dirs, files in os.walk(frame_dir_handle.name,
+                    topdown=False):
+                for image in sorted(files):
+                    yield PIL.Image.open(os.path.join(root, image))
+        it = frames_iter()
+        first = next(it)
+        first.save(save_file,
+                   save_all=True,
+                   append_images=it,
+                   duration=10,
+                   loop=0)
 
     # Return success code
     return 0
