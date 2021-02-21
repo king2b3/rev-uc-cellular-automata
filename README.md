@@ -2,7 +2,7 @@
 REV UC Hackathon project 
 
 A modular evolutionary framework to explore topics in Cellular Automata. The two ideas we tried to implement are explained below (Conway's Game of Life, and Hostile Evolutionary Environment).
-[Demo for the hackaton](https://www.youtube.com/watch?v=0ZGbIKd0XrM)
+[Video demo for the hackaton](https://www.youtube.com/watch?v=0ZGbIKd0XrM)
 
 ---
 
