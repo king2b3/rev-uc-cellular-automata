@@ -2,9 +2,9 @@
 from .plot import Plot
 import matplotlib.pyplot as plt
 import plot_funcs
+from ..game.entity.individual import Individual
 
 class PlotAverage(Plot):
-
     def plot(self, game:"Game", file_path:str) -> None:
         """Plot the game information saving the plot to the given
         file path
@@ -41,6 +41,4 @@ class PlotAverage(Plot):
         plt.box(on=None)
 
         plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w', orientation='portrait', transparent=False, frameon=None)
-
-        return
         

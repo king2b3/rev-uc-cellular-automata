@@ -5,9 +5,9 @@ import plot_funcs
 import numpy as np
 
 class PlotAverage(Plot):
-
     def __init__(self):
         self.avgtraits = [[],[],[]]
+
 
     def plot(self, game:"Game", file_path:str) -> None:
         """Plot the game information saving the plot to the given
@@ -33,6 +33,4 @@ class PlotAverage(Plot):
         plt.plot(x_vals, self.avgtraits[2])
 
         plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w', orientation='portrait', transparent=False, frameon=None)
-
-        return
         
