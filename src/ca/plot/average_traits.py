@@ -24,28 +24,30 @@ class AverageTraits(Plot):
         rows = []
         
         for key in traits:
-            celldata.append([traits[key]])
+            tempdata = traits[key]
+            celldata.append([tempdata[0]])
+            celldata.append([tempdata[1]])
+            celldata.append([tempdata[2]])
             #rows.append([key + '_Energy',key + '_Speed',key + '_Sense'])
             rows.append(key + '_Energy')
             rows.append(key + '_Speed')
             rows.append(key + '_Sense')
-        
+
         cols = ['Average Values']
-        rows = [rows]
 
         # Table plot params
-        xmin = 0.05; xmax = 0.85
+        xmin = 0.35; xmax = 0.65
         ymin = 0.15; ymax = 0.75
 
         fig = plt.figure(figsize=(height/96 ,width/96), linewidth=2, dpi=96)
         ax = fig.add_axes([xmin,ymin,xmax,ymax])
         ax.table(cellText=celldata,
                             rowLabels=rows,
-                            rowLoc='center',
+                            rowLoc='right',
                             colLabels=cols,
-                            colWidths=[0.5],
+                            colWidths=[0.4],
                             loc='center',
-                            fontsize=14)
+                            fontsize=12)
         ax = plt.gca()
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)# Hide axes border
