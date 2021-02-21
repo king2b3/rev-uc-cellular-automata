@@ -2,11 +2,8 @@ from ..game.entity.individual import Individual
 
 
 def average_traits(game:"Game"):
-    # Search grid 
-    # [energy, speed, sense]
     totals = {}
     num_individuals = {}
-
     for x in range(len(game.grid)):
         for y in range(len(game.grid[x])):
             if game.grid[x][y] is None:

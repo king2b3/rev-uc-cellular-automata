@@ -28,7 +28,6 @@ class AverageTraits(Plot):
             celldata.append([tempdata[0]])
             celldata.append([tempdata[1]])
             celldata.append([tempdata[2]])
-            #rows.append([key + '_Energy',key + '_Speed',key + '_Sense'])
             rows.append(key + '_Energy')
             rows.append(key + '_Speed')
             rows.append(key + '_Sense')
@@ -38,7 +37,7 @@ class AverageTraits(Plot):
         # Table plot params
         xmin = 0.35; xmax = 0.65
         ymin = 0.15; ymax = 0.75
-
+        
         fig = plt.figure(figsize=(height/96 ,width/96), linewidth=2, dpi=96)
         ax = fig.add_axes([xmin,ymin,xmax,ymax])
         ax.table(cellText=celldata,

@@ -131,9 +131,9 @@ def main(seconds_between_updates:float=0.5,
                 elif event.key == pygame.K_c:
                     if game_mode == GameMode.CONWAY:
                         grid = {}
-                        for x in range(width):
+                        for x in range(len(game.grid)):
                             grid[x] = {}
-                            for y in range(height):
+                            for y in range(len(game.grid[0])):
                                 grid[x][y] = Conway(Position(x,y), False)
                         game.insert_entities(grid, Position(0,0), False)
             elif event.type == pygame.MOUSEBUTTONDOWN:
