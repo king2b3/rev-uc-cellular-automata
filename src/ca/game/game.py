@@ -179,5 +179,7 @@ class Game():
 
     def delete_entity(self, position: "Position") -> None:
         """Delete the entity that exists within that position"""
-        raise NotImplementedError
+        entity = self.grid[position.x][position.y]
+        for pos in entity.positions:
+            self.grid[pos.x][pos.y] = None
 
