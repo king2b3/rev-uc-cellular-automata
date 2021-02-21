@@ -49,6 +49,5 @@ class PlotAlive(Plot):
         ax.set_xticks(np.arange(len(living)))
         ax.set_xticklabels(labels)
         ax.legend()
-
-        ...
+        return fig, ax
 
