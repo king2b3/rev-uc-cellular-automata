@@ -28,7 +28,7 @@ def parse_arguments(args=None) -> None:
             default=0.5, type=lambda s: abs(float(s)),
             help="The number of seconds between each update of the game")
     def string_to_boundary_type(s:str):
-        s = s.uppper()
+        s = s.upper()
         if s == "PERIODIC":
             return BoundaryType.PERIODIC
         elif s == "HARD":
