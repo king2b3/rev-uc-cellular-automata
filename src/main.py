@@ -4,6 +4,7 @@
 import argparse
 import pygame
 import os
+import time
 
 from ca.game.entity.conway import boat
 from ca.game import Game, UpdateMode, BoundaryType
@@ -22,15 +23,20 @@ def parse_arguments(args=None) -> None:
     parser = argparse.ArgumentParser(
             description="Not much here yet, just wait a day.",
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument("-sbu", "--seconds_between_updates",
+            default=0.5, type=lambda s: abs(float(s)),
+            help="The number of seconds between each update of the game")
     args = parser.parse_args(args=args)
     return args
 
 
-def main() -> int:
+def main(seconds_between_updates:float=0.5) -> int:
     """Main function.
 
     Parameters
     ----------
+    seconds_between_updates: float=0.5
+        The number of seconds between each update of the game.
 
     Returns
     -------
@@ -44,6 +50,7 @@ def main() -> int:
     game = Game(UpdateMode.ASYNCHRONOUS, boat(), BoundaryType.PERIODIC)
     window = Window(game, [], "", 600, 1200)
 
+    time_since_last_update = time.perf_counter()
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -52,8 +59,10 @@ def main() -> int:
                 if event.key == pygame.K_ESCAPE:
                     return 0
         window.draw()
-        window.update()
-
+        if time.perf_counter() - time_since_last_update\
+                >= seconds_between_updates:
+            time_since_last_update = time.perf_counter()
+            window.update()
 
     # Return success code
     return 0
