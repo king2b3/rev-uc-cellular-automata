@@ -6,7 +6,7 @@ import pygame
 import os
 import time
 
-from ca.game.entity.conway import blinker_vertical
+from ca.game.entity.conway import blinker_horizontal
 from ca.game import Game, UpdateMode, BoundaryType
 from ca.plot import PlotAlive, PlotAverage
 from ca.window import Window

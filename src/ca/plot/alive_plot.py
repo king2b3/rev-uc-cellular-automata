@@ -2,11 +2,9 @@
 from .plot import Plot
 import matplotlib.pyplot as plt
 import numpy as np
+from ..game.entity.individual import Individual
 
 class PlotAlive(Plot):
-    def draw(self, surface:"pygame.Surface") -> None:
-        raise NotImplementedError
-
     def count_alive(self, game:"Game") -> tuple:
         # Get the information from the game object
         # Search grid
@@ -24,6 +22,7 @@ class PlotAlive(Plot):
                     alive[2] += 1
                 
         return alive   
+
 
     def plot(self, game:"Game", file_path:str) -> None:
         """Plot the game information saving the plot to the given
@@ -49,8 +48,5 @@ class PlotAlive(Plot):
         ax.set_xticks(np.arange(len(living)))
         ax.set_xticklabels(labels)
         ax.legend()
-        
+
         plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w', orientation='portrait', transparent=False, frameon=None)
-
-        return
-
