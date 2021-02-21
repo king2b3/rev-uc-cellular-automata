@@ -27,8 +27,13 @@ class AverageTraitTime(Plot):
 
         x_vals = np.arange(len(self.avgtraits[0]))
 
-        fig = plt.figure(figsize=(height/96 ,width/96))
-        ax = plt.plot(x_vals, self.avgtraits[0])
+        fig = plt.figure(figsize=(height/96 ,width/96),dpi=120)
+        ax = fig.add_axes([0.3,0.2,0.6,0.6])
+        
+        ax.set_xlabel('X Label')
+        ax.set_ylabel('Y Label')
+        ax.set_title('Title')
+        ax.plot(x_vals, self.avgtraits[0])
         plt.plot(x_vals, self.avgtraits[1])
         plt.plot(x_vals, self.avgtraits[2])
 
