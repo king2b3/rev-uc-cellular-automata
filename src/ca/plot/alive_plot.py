@@ -45,20 +45,20 @@ class AlivePlot(Plot):
         labels = ['Alive', 'Dead', 'None']
 
        
-        fig = plt.figure(figsize=(height/96 ,width/96))
-        ax = fig.add_axes([0,0,0.5,0.5])
+        fig = plt.figure(figsize=(height/96 ,width/96), dpi=96)
+        ax = fig.add_axes([0.2,0.15,0.75,0.75])
         ax.bar(labels,living)
 
         #fig = plt.figure()
         #ax = plt.bar(np.arange(len(living)),living,0.35)
         # Add some text for labels, title and custom x-axis tick labels, etc.
-        ax.set_xlabel('X Label')
-        ax.set_ylabel('Y Label')
-        ax.set_title('Title')
+        # ax.set_xlabel('X Label')
+        ax.set_ylabel('Total')
+        ax.set_title('Population Totals')
         #ax.set_xticks(np.arange(len(living)))
         #ax.set_xticklabels(labels)
         #ax.legend()
 
-        plt.savefig(file_path)
+        plt.savefig(file_path, dpi=96)
         plt.close(fig)
 
