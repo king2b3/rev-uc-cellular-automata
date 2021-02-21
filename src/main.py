@@ -118,6 +118,7 @@ def main(seconds_between_updates:float=0.5,
             [AlivePlot(), AverageTraits(), AverageTraitTime(), None], 
             "", 600, 1200)
 
+    started = False
     time_since_last_update = time.perf_counter()
     while True:
         for event in pygame.event.get():
@@ -126,9 +127,13 @@ def main(seconds_between_updates:float=0.5,
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return 0
+                elif event.key == pygame.K_SPACE or\
+                      event.key == pygame.K_RETURN:
+                    started = True
+
         window.draw()
         if time.perf_counter() - time_since_last_update\
-                >= seconds_between_updates:
+                >= seconds_between_updates and started:
             time_since_last_update = time.perf_counter()
             window.update()
 
