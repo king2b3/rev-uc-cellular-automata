@@ -6,7 +6,8 @@ import pygame
 import os
 import time
 
-from ca.game.entity.conway import blinker_horizontal
+from ca.game.entity.conway import Conway, blinker_horizontal
+from ca.game.entity import Position
 from ca.game import Game, UpdateMode, BoundaryType
 from ca.plot import AlivePlot, AverageTraits, AverageTraitTime
 from ca.window import Window
@@ -79,8 +80,19 @@ def main(seconds_between_updates:float=0.5,
     FileNotFoundError
         Means that the input file was not found.
     """
-    game = Game(update_mode, blinker_horizontal(),
+    width = height = 50
+    grid = {}
+    for x in range(width):
+        grid[x] = {}
+        for y in range(height):
+            grid[x][y] = Conway(Position(x,y), False)
+
+    game = Game(update_mode, grid,
             boundary_type)
+
+    for x in range(0, width, 5):
+        for y in range(0, height, 5):
+            game.insert_entities(blinker_horizontal(), Position(x,y), False)
     window = Window(game, 
             [AlivePlot(), AverageTraits(), AverageTraitTime(), None], 
             "", 600, 1200)
