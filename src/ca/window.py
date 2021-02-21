@@ -37,9 +37,13 @@ class Window():
                 pygame.Rect((0,0), (half_width, height)))
         self._plot_subsurface = self._main_surface.subsurface(
                 pygame.Rect((half_width,0), (half_width, height)))
+        # Setup the font
+        self._cursor_font_size = int(self._plot_subsurface.get_height()/16)
+        self._cursor_font = pygame.font.SysFont(None, 
+                self._cursor_font_size)
 
 
-    def draw(self):
+    def draw(self, cursor_name:str):
         # Black out the screen
         self._main_surface.fill((0,0,0))
 
@@ -61,17 +65,25 @@ class Window():
                     # Get the plot
                     plot = self.plots[plot_number]
                     plot_number += 1
-                    # Check if it's an empty plot
-                    if plot is None:
-                        continue
                     # Prepare the surface
                     plot_surface = self._plot_subsurface.subsurface(
                             pygame.Rect(
                                 (x*plot_width, y*plot_height),
                                 (plot_width, plot_height)))
-                    # Draw the plot
-                    plot.draw(self.game, plot_surface, 
-                            self._plot_dir_handle.name)
+                    if plot is None:
+                        # Display cursor information
+                        cursor_label = self._cursor_font.render(
+                                "Cursor Type:", True, (255, 255, 255))
+                        plot_surface.blit(cursor_label, 
+                                (0, plot_height//4))
+                        cur_name = self._cursor_font.render(
+                                cursor_name, True, (255, 255, 255))
+                        plot_surface.blit(cur_name, 
+                                (0, plot_height//3))
+                    else:
+                        # Draw the plot
+                        plot.draw(self.game, plot_surface, 
+                                self._plot_dir_handle.name)
 
         # Tell PyGame the screen has been updated
         pygame.display.update()

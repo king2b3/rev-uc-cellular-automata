@@ -140,10 +140,8 @@ def main(seconds_between_updates:float=0.5,
                     if game_mode == GameMode.CONWAY:
                         if grid_pos is not None:
                             game.insert_entities(cursor[1](), grid_pos, False)
-                            # game.grid[grid_pos.x][grid_pos.y].living =\
-                                # not game.grid[grid_pos.x][grid_pos.y].living
 
-        window.draw()
+        window.draw(cursor[0])
         if time.perf_counter() - time_since_last_update\
                 >= seconds_between_updates and started:
             time_since_last_update = time.perf_counter()
