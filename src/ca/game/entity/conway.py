@@ -519,4 +519,5 @@ def repeater_tetris() -> dict:
                 1 : Conway(Position(1,1),True), 
                 2 : Conway(Position(1,2),False)
               }
+    }
     return temp
