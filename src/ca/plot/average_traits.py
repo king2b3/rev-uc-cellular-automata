@@ -73,5 +73,8 @@ class PlotAverage(Plot):
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)# Hide axes border
         plt.box(on=None)
-        return fig, ax
+        
+        plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w', orientation='portrait', transparent=False, frameon=None)
+
+        return
         

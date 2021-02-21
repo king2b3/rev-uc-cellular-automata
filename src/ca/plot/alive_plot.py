@@ -49,5 +49,8 @@ class PlotAlive(Plot):
         ax.set_xticks(np.arange(len(living)))
         ax.set_xticklabels(labels)
         ax.legend()
-        return fig, ax
+        
+        plt.savefig(file_path, dpi=150, facecolor='w', edgecolor='w', orientation='portrait', transparent=False, frameon=None)
+
+        return
 
